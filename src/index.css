@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
-
+*{
+  font-family: sans-serif;
+}
 html::-webkit-scrollbar{
   width: 0;
 }

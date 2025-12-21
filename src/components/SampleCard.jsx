@@ -18,7 +18,7 @@ const SampleCard = ({newProduct}) => {
         src={
           newProduct.image1
             ? URL.createObjectURL(newProduct.image1)
-          : ""
+          : null
         }
         alt={newProduct.name || "Product Image"}
       />

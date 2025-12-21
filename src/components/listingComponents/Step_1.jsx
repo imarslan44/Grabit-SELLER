@@ -2,8 +2,11 @@ import React from 'react'
 
 
 const Step_1 = ({ newProduct, handleChange }) => {
+
+
+
   return (
-    <div className=" flex-2  bg-white p-8 w-full h-full space-y-4 ">
+    <form className=" flex-2  bg-white p-8 w-full  space-y-2 ">
       <h2 className="text-xl font-semibold text-gray-800">Step 1: Basic Info</h2>
 
       {/* Product Title */}
@@ -13,7 +16,7 @@ const Step_1 = ({ newProduct, handleChange }) => {
         </label>
         <input
           type="text"
-          name="name"
+          name="title"
           value={newProduct.name || ""}
           onChange={handleChange}
           placeholder="Enter product title"
@@ -45,8 +48,8 @@ const Step_1 = ({ newProduct, handleChange }) => {
         </label>
         <input
           type="text"
-          name="brand"
-          value={newProduct.brand || ""}
+          name="category"
+          value={newProduct.category || ""}
           onChange={handleChange}
           placeholder="Enter the category this item belongs"
           className="w-full px-3 py-2 border rounded-sm focus:outline-none focus:ring focus:ring-gray-700"
@@ -71,11 +74,9 @@ const Step_1 = ({ newProduct, handleChange }) => {
           Remember both categories impact on search engigne. So enter wisely and avoid spelling mistakes 
         </p>
 
-        <button className="w-full  p-2 text-md bg-black rounded-sm text-white mt-2 mb-2">
-          Next
-        </button>
+       
       </div>
-    </div>
+    </form>
   );
 };
 
