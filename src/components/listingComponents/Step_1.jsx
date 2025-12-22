@@ -1,8 +1,17 @@
 import React from 'react'
 
 
-const Step_1 = ({ newProduct, handleChange }) => {
+const Step_1 = ({ basicInfo, setBasicInfo }) => {
 
+
+  const handleChange = (e) =>{
+
+    const {name, value} = e.target;
+
+    setBasicInfo({...basicInfo, [name]: value});
+
+
+  }
 
 
   return (
@@ -17,7 +26,7 @@ const Step_1 = ({ newProduct, handleChange }) => {
         <input
           type="text"
           name="title"
-          value={newProduct.name || ""}
+          value={basicInfo.title || ""}
           onChange={handleChange}
           placeholder="Enter product title"
           className="w-full px-3 py-2 border rounded-sm focus:outline-none focus:ring focus:ring-gray-700"
@@ -32,7 +41,7 @@ const Step_1 = ({ newProduct, handleChange }) => {
         </label>
         <textarea
           name="description"
-          value={newProduct.description || ""}
+          value={basicInfo.description || ""}
           onChange={handleChange}
           placeholder="Write product description"
           rows={4}
@@ -49,7 +58,7 @@ const Step_1 = ({ newProduct, handleChange }) => {
         <input
           type="text"
           name="category"
-          value={newProduct.category || ""}
+          value={basicInfo.category || ""}
           onChange={handleChange}
           placeholder="Enter the category this item belongs"
           className="w-full px-3 py-2 border rounded-sm focus:outline-none focus:ring focus:ring-gray-700"
@@ -64,7 +73,7 @@ const Step_1 = ({ newProduct, handleChange }) => {
         <input
           type="text"
           name="subcategory"
-          value={newProduct.vendorStore || ""}
+          value={basicInfo.subcategory || ""}
           onChange={handleChange}
           placeholder="Enter the subcategory this item belongs"
           className="w-full px-3 py-2 border rounded-sm focus:outline-none focus:ring focus:ring-gray-700"

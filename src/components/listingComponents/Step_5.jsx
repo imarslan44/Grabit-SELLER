@@ -1,0 +1,105 @@
+import React, { useState } from "react";
+
+const Step_5 = ({ deliveryDetails, setDeliveryDetails }) => {
+  const [pincodeInput, setPincodeInput] = useState("");
+
+  const handleChange = (field, value) => {
+    setDeliveryDetails({ ...deliveryDetails, [field]: value });
+  };
+
+  const addPincode = () => {
+    if (pincodeInput && !deliveryDetails.deliveryAreas.includes(pincodeInput)) {
+      setDeliveryDetails({
+        ...deliveryDetails,
+        deliveryAreas: [...deliveryDetails.deliveryAreas, pincodeInput],
+      });
+      setPincodeInput("");
+    }
+  };
+
+  const removePincode = (index) => {
+    const updated = [...deliveryDetails.deliveryAreas];
+    updated.splice(index, 1);
+    setDeliveryDetails({ ...deliveryDetails, deliveryAreas: updated });
+  };
+
+  return (
+    <div className="p-6 bg-gray-50 rounded-md ">
+      <h2 className="text-2xl font-bold mb-4">Step 5: Delivery Details</h2>
+
+      {/* COD */}
+      <div className="mb-4 flex items-center gap-2">
+        <label className="font-medium">Cash on Delivery (COD)</label>
+        <input
+          type="checkbox"
+          checked={deliveryDetails.COD}
+          onChange={(e) => handleChange("COD", e.target.checked)}
+        />
+      </div>
+
+      {/* Return Policy */}
+      <div className="mb-4">
+        <label className="block mb-2 font-medium">Return Policy (days)</label>
+        <input
+          type="number"
+          value={deliveryDetails.returnPolicy}
+          onChange={(e) => handleChange("returnPolicy", e.target.value)}
+          placeholder="Enter return policy in days"
+          className="w-full border px-3 py-2 rounded"
+        />
+      </div>
+
+      {/* Shipping Time */}
+      <div className="mb-4">
+        <label className="block mb-2 font-medium">Shipping Time (days)</label>
+        <input
+          type="number"
+          value={deliveryDetails.shippingTime}
+          onChange={(e) => handleChange("shippingTime", e.target.value)}
+          placeholder="Enter shipping time in days"
+          className="w-full border px-3 py-2 rounded"
+        />
+      </div>
+
+      {/* Delivery Areas */}
+      <div className="mb-4">
+        <label className="block mb-2 font-medium">Delivery Areas (Pincodes)</label>
+        <div className="flex gap-2 mb-2">
+          <input
+            type="text"
+            value={pincodeInput}
+            onChange={(e) => setPincodeInput(e.target.value)}
+            placeholder="Enter pincode"
+            className="border px-3 py-2 rounded flex-1"
+          />
+          <button
+            type="button"
+            onClick={addPincode}
+            className="px-4 py-2 bg-indigo-600 text-white rounded"
+          >
+            + Add
+          </button>
+        </div>
+        <ul className="space-y-1">
+          {deliveryDetails.deliveryAreas.map((pincode, index) => (
+            <li
+              key={index}
+              className="flex justify-between items-center border px-2 py-1 rounded"
+            >
+              <span>{pincode}</span>
+              <button
+                type="button"
+                onClick={() => removePincode(index)}
+                className="text-red-500 hover:text-red-700"
+              >
+                Remove
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default Step_5;

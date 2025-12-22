@@ -1,196 +1,211 @@
 import React, { useState } from "react";
 
-const Step_2 = () => {
-  const [colors, setColors] = useState([{ name: "", images: [] }]);
-  const [sizesEnabled, setSizesEnabled] = useState(false);
-  const [selectedSizes, setSelectedSizes] = useState([]);
+const Step_2 = ({variants, setVariants}) => {
+  
 
-  const handleColorChange = (index, value) => {
-    const updatedColors = [...colors];
-    updatedColors[index].name = value;
-    setColors(updatedColors);
+
+
+  // Handle color name
+  const handleColorChange = (index, field, value) => {
+    const updated = [...variants];
+    updated[index][field] = value;
+    setVariants(updated);
   };
-
+  // Handle removing a size
+const removeSize = (variantIndex, sizeIndex) => {
+  const updated = [...variants];
+  updated[variantIndex].sizes.splice(sizeIndex, 1);
+  setVariants(updated);
+};
+  // Handle image upload
   const handleImageUpload = (index, slot, file) => {
-    const updatedColors = [...colors];
-    updatedColors[index].images[slot] = file;
-    setColors(updatedColors);
+    const updated = [...variants];
+    updated[index].images[slot] = file;
+    setVariants(updated);
   };
 
-  const addColorOption = () => {
-    setColors([...colors, { name: "", images: [] }]);
+  
+  // Handle size property (price, stock, discount)
+  const handleSizeChange = (variantIndex, sizeIndex, field, value) => {
+    const updated = [...variants];
+    updated[variantIndex].sizes[sizeIndex][field] = value;
+    setVariants(updated);
   };
 
-  const removeColorOption = (index) => {
-    const updatedColors = [...colors];
-    updatedColors.splice(index, 1);
-    setColors(updatedColors.length ? updatedColors : [{ name: "", images: [] }]);
+  // Add new size to a variant
+  const addSize = (variantIndex, sizeName) => {
+    const updated = [...variants];
+    updated[variantIndex].sizes.push({
+      size: sizeName,
+      price: "",
+      discount: "",
+      stock: ""
+    });
+    setVariants(updated);
   };
 
-  const toggleSize = (size) => {
-    if (selectedSizes.includes(size)) {
-      setSelectedSizes(selectedSizes.filter((s) => s !== size));
-    } else {
-      setSelectedSizes([...selectedSizes, size]);
-    }
+  // Add new color variant
+  const addVariant = () => {
+    setVariants([...variants, { color: "", images: [], sizes: [] }]);
   };
 
-  const handleSubmit = () => {
-    const isValid = colors.every((c) => c.images.filter(Boolean).length >= 2);
-    if (!isValid) {
-      alert("Please upload at least 2 images for each color.");
-      return;
-    }
-    console.log("Submitted colors:", colors);
-    console.log("Sizes enabled:", sizesEnabled);
-    console.log("Selected sizes:", selectedSizes);
-    // proceed to next step
-  };
+
+const removeVarient = (index)=>{
+  // remove varient at index
+  const updated = [...variants];
+  updated.splice(index, 1);
+  setVariants(updated);
+  
+}
+
+
 
   return (
-    <div className="bg-gray-50 min-h-screen p-10">
-      <h2 className="text-3xl font-bold text-gray-900 tracking-tight border-b pb-4">
-        Step 2: Variants & Colors
-      </h2>
 
-      {/* Sizes Section */}
-      <div className="bg-white border rounded-xl shadow-sm p-6 mb-8">
-        <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-          <input
-            type="checkbox"
-            checked={sizesEnabled}
-            onChange={(e) => setSizesEnabled(e.target.checked)}
-            className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+    <div className="p-6 bg-gray-50 ">
+
+      <h2 className="text-2xl font-bold mb-4">Variants</h2>
+
+{/* map on each varient and show inputs fields for each */}
+      {variants.map((variant, vIndex) => (
+        <div key={vIndex} className="border rounded-lg p-4 pt-8 pr-10 mb-6 bg-white relative">
+
+        { vIndex > 0 && <button onClick={()=>removeVarient(vIndex)} 
+        className="absolute right-2 top-2  cursor-pointer"> 
+            <abbr title="Delete this color Varient">
+              <ion-icon name="close-outline" className="text-black w-6 h-6"></ion-icon>
+            </abbr> 
+          </button>
+        }
+
+          {/* Color */}
+      <div className="flex gap-4 mb-4">
+        <input
+            type="text"
+            value={variant.color}
+            onChange={(e) => handleColorChange(vIndex, "color", e.target.value)}
+            placeholder="Color name."
+            className="mb-3 w-1/4 border px-3 py-2 rounded"
           />
-          Sizes available for this product?
-        </label>
+        <input
+           type="number"
+           name="price"
+           value={variant.price || ""}
+           onChange={(e) => handleColorChange(vIndex, "price", e.target.value)}
+           placeholder="Price in Rs."
+           className={`w-1/4 mb-3 border px-3 py-2 rounded 
+              ${variant.sizes.length > 0 ? "opacity-50 cursor-not-allowed" : ""}`}
+  disabled={variant.sizes.length > 0}
+/>
 
-        <div className="flex gap-3 mt-4">
-          {["S", "M", "L", "XL", "XXL"].map((size) => (
-            <label
-              key={size}
-              className={`px-3 py-1 border rounded-md text-sm font-medium cursor-pointer transition ${
-                selectedSizes.includes(size)
-                  ? "bg-indigo-600 text-white border-indigo-600"
-                  : "bg-gray-100 text-gray-600 border-gray-300"
-              } ${!sizesEnabled ? "opacity-50 cursor-not-allowed" : ""}`}
-            >
-              <input
-                type="checkbox"
-                value={size}
-                checked={selectedSizes.includes(size)}
-                onChange={() => toggleSize(size)}
-                disabled={!sizesEnabled}
-                className="hidden"
-              />
-              {size}
-            </label>
-          ))}
-        </div>
+<input
+  type="number"
+  name="stock"
+  value={variant.stock || ""}
+  onChange={(e) => handleColorChange(vIndex, "stock", e.target.value)}
+  placeholder="Stock qty."
+  className={`w-1/4 mb-3 border px-3 py-2 rounded 
+              ${variant.sizes.length > 0 ? "opacity-50 cursor-not-allowed" : ""}`}
+  disabled={variant.sizes.length > 0}
+/>
+
       </div>
 
-      {/* Colors Section */}
-      <div className="space-y-8 mt-6">
-        {colors.map((color, index) => (
-          <div
-            key={index}
-            className="relative border rounded-xl shadow-sm p-6 space-y-6 bg-white hover:shadow-md transition"
-          >
-            {/* Delete Icon */}
-            {colors.length > 1 && (
-              <button
-                type="button"
-                onClick={() => removeColorOption(index)}
-                className="absolute top-3 right-3 text-gray-400 hover:text-red-500 transition"
-              >
-                ✕
-              </button>
-            )}
+          {/* Images */}
+          {/* Images */}
 
-            {/* Color Name */}
-            <div>
-              <label className="block mb-2 text-sm font-semibold text-gray-700">
-                Color Name
-              </label>
-              <input
-                type="text"
-                value={color.name}
-                onChange={(e) => handleColorChange(index, e.target.value)}
-                placeholder="e.g. Red, Black, Blue"
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-900 placeholder-gray-400"
-                required
-              />
-            </div>
 
-            {/* Image Upload Skeletons (smaller size) */}
-            <div>
-              <label className="block mb-2 text-sm font-semibold text-gray-700">
-                Upload Images (min 2, max 4)
-              </label>
-              <div className="grid grid-cols-4 gap-3">
-                {[...Array(4)].map((_, i) => (
-                  <label
-                    key={i}
-                    className={`w-24 h-24 border-2 border-dashed rounded-md flex items-center justify-center cursor-pointer bg-gray-50 hover:border-indigo-500 transition ${
-                      i < 2 && !color.images[i] ? "border-red-400" : ""
-                    }`}
-                  >
-                    {color.images[i] ? (
-                      <img
-                        src={URL.createObjectURL(color.images[i])}
-                        alt="preview"
-                        className="w-full h-full object-cover rounded-md"
-                      />
-                    ) : (
-                      <span
-                        className={`text-xs ${
-                          i < 2 ? "text-red-400 font-semibold" : "text-gray-400"
-                        }`}
-                      >
-                        {i < 2 ? "Required" : "+ Add"}
-                      </span>
-                    )}
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      required={i < 2}
-                      onChange={(e) =>
-                        handleImageUpload(index, i, e.target.files[0])
-                      }
-                    />
-                  </label>
-                ))}
-              </div>
-              <p className="text-xs text-gray-500 mt-2">
-                Each color must have at least 2 images (front & back). You can upload up to 4.
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
 
-      {/* Action Buttons */}
-      <div className="w-full flex gap-4 mt-8">
-        <button
-          onClick={handleSubmit}
-          className="w-full py-3 text-md bg-emerald-600 hover:bg-emerald-700 rounded-md text-white font-semibold tracking-wide transition"
-        >
-          Next
-        </button>
-        <button
-          type="button"
-          onClick={addColorOption}
-          className="w-full py-3 text-md bg-indigo-600 hover:bg-indigo-700 rounded-md text-white font-semibold tracking-wide transition"
-        >
-          + Add Another Color
-        </button>
-      </div>
+<div className="flex gap-4 mb-3">
+  {[...Array(4)].map((_, i) => (
+    <label
+      key={i}
+      className="w-24 h-24 border-2 border-dashed rounded-md flex items-center justify-center cursor-pointer bg-gray-50 hover:border-indigo-500 transition"
+    >
+      {variant.images[i] ? (
+        <img
+          src={URL.createObjectURL(variant.images[i])}
+          alt="preview"
+          className="w-full h-full object-cover rounded-md"
+        />
+      ) : (
+        <span className="text-sm text-gray-400">+ Add</span>
+      )}
+      <input
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={(e) =>
+          handleImageUpload(vIndex, i, e.target.files[0])
+        }
+      />
+    </label>
+  ))}
+</div>
+
+
+          {/* Sizes */}
+          {/* Sizes */}
+<div className="space-y-2  ">
+  {variant.sizes.map((size, sIndex) => (
+    <div key={sIndex} className=" gap-2 flex items-center">
+
+      <input 
+      type="text"
+      placeholder="Size"
+      value={size.size}
+      onChange={(e)=>handleSizeChange(vIndex, sIndex, "size", e.target.value)} className="border px-2 py-1 rounded  w-1/5" />
+
+      <input 
+        type="number"
+        placeholder="Price"
+        value={size.price}
+        onChange={(e) =>
+          handleSizeChange(vIndex, sIndex, "price", e.target.value)
+        }
+        className="border px-2 py-1 rounded  w-1/5"
+      />
+      <input
+        type="number"
+        placeholder="Stock"
+        value={size.stock}
+        min ="1"
+        onChange={(e) =>
+          handleSizeChange(vIndex, sIndex, "stock", e.target.value)
+        }
+        className="border px-2 py-1 rounded  w-1/5"
+      />
+      {/* Remove Icon */}
+      <button
+        type="button"
+        onClick={() => removeSize(vIndex, sIndex)}
+        className=" font-bold h-8 w-1/6 bg-red-300 hover:bg-red-500 cursor-pointer flex justify-center items-center rounded-xs "
+      >
+       <ion-icon name="close-outline" className="text-black w-full h-6 hover:text-white"></ion-icon>
+      </button>
     </div>
+  ))}
+  <button
+    type="button"
+    onClick={() => addSize(vIndex, "S")}
+    className="mt-2 px-3 py-1 bg-indigo-600 text-white rounded"
+  >
+    + Add Size
+  </button>
+</div>
+        </div>
+      ))}
+
+      <button
+        type="button"
+        onClick={addVariant}
+        className="px-4 py-2 bg-indigo-600 text-white rounded"
+      >
+        + Add Another Color Variant
+      </button>
+    </div>
+ 
   );
 };
 
 export default Step_2;
-
-
-

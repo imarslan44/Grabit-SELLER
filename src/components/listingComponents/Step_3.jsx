@@ -1,29 +1,30 @@
-import React, { useState } from "react";
+import React, {useEffect, useState } from "react";
 
-const Step_3 = () => {
-  const [dimensions, setDimensions] = useState({
-    length: "",
-    width: "",
-    height: "",
-    dimUnit: "cm", // shared unit for length/width/height
-    weight: "",
-    weightUnit: "g",
-  });
+const Step_3 = ({attributes, setAttributes, activeCount, setActiveCount}) => {
 
-  const [specs, setSpecs] = useState(["", "", ""]);
-  const [activeCount, setActiveCount] = useState(1);
+   const {dimensions, specs} = attributes;
 
-  // Helper: check if string has at least 2 words
-  const hasTwoWords = (str) => str.trim().split(/\s+/).length >= 2;
+  
 
+  // Helper: check if string has at least 2 words // changed to 1 name is still same
+  const hasTwoWords = (str) => str.trim().split(/\s+/).length >= 1;
+ 
+  
   const handleDimensionChange = (field, value) => {
-    setDimensions({ ...dimensions, [field]: value });
+    const updatedDimensions = {...dimensions};
+    updatedDimensions[field] = value
+
+    setAttributes((prev)=>{ 
+      return {...prev, dimensions: updatedDimensions}
+     });
   };
 
   const handleSpecChange = (index, value) => {
     const updatedSpecs = [...specs];
     updatedSpecs[index] = value;
-    setSpecs(updatedSpecs);
+    setAttributes((prev)=>{
+      return {...prev, specs: updatedSpecs}
+    });
 
     if (index < specs.length - 1 && hasTwoWords(value)) {
       setActiveCount(Math.max(activeCount, index + 2));
@@ -40,19 +41,18 @@ const Step_3 = () => {
     setActiveCount(activeCount + 1);
   };
 
-  const handleSubmit = () => {
-    const isValid = specs.slice(0, activeCount).every((s) => hasTwoWords(s));
-    if (!isValid) {
-      alert("Please provide at least 2 words in each active specification.");
-      return;
-    }
-    console.log("Submitted dimensions:", dimensions);
-    console.log("Submitted specifications:", specs.slice(0, activeCount));
-    // proceed to next step
-  };
+const removeSpec = (index) => {
+  const updatedSpecs = [...specs];
+  updatedSpecs.splice(index, 1);
+   setAttributes((prev)=>{
+      return {...prev, specs: updatedSpecs}
+    });
+}
+
+
 
   return (
-    <div className="bg-gray-50 min-h-screen p-10">
+    <div className="bg-gray-50  px-8 ">
       <h2 className="text-3xl font-bold text-gray-900 tracking-tight border-b pb-4">
         Step 3: Specifications / Highlights
       </h2>
@@ -65,7 +65,7 @@ const Step_3 = () => {
           </label>
           <input
             type="number"
-            value={dimensions.length}
+            value={attributes.dimensions.length}
             onChange={(e) => handleDimensionChange("length", e.target.value)}
             placeholder="e.g. 20"
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -77,7 +77,7 @@ const Step_3 = () => {
           </label>
           <input
             type="number"
-            value={dimensions.width}
+            value={attributes.dimensions.width}
             onChange={(e) => handleDimensionChange("width", e.target.value)}
             placeholder="e.g. 10"
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -89,7 +89,7 @@ const Step_3 = () => {
           </label>
           <input
             type="number"
-            value={dimensions.height}
+            value={attributes.dimensions.height}
             onChange={(e) => handleDimensionChange("height", e.target.value)}
             placeholder="e.g. 5"
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -100,7 +100,7 @@ const Step_3 = () => {
             Unit
           </label>
           <select
-            value={dimensions.dimUnit}
+            value={attributes.dimensions.dimUnit}
             onChange={(e) => handleDimensionChange("dimUnit", e.target.value)}
             className="w-full px-2 py-2 border rounded-md bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
@@ -118,7 +118,7 @@ const Step_3 = () => {
           </label>
           <input
             type="number"
-            value={dimensions.weight}
+            value={attributes.dimensions.weight}
             onChange={(e) => handleDimensionChange("weight", e.target.value)}
             placeholder="e.g. 500"
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -129,7 +129,7 @@ const Step_3 = () => {
             Unit
           </label>
           <select
-            value={dimensions.weightUnit}
+            value={attributes.dimensions.weightUnit}
             onChange={(e) => handleDimensionChange("weightUnit", e.target.value)}
             className="w-full px-2 py-2 border rounded-md bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
@@ -141,7 +141,7 @@ const Step_3 = () => {
 
       {/* Specifications Section */}
       <div className="space-y-4 mt-8">
-        {specs.map((spec, index) => (
+        {attributes.specs.map((spec, index) => (
           <div key={index} className="flex items-center gap-3">
             <input
               type="text"
@@ -160,6 +160,10 @@ const Step_3 = () => {
               disabled={index >= activeCount}
               required={index === 0}
             />
+            {index > 0 && <button onClick={()=>removeSpec(index)}>
+            <ion-icon name="close-outline" className="text-black w-6 h-6 p-2 bg-white rounded-sm"></ion-icon>
+            </button>}
+
           </div>
         ))}
       </div>
@@ -175,11 +179,6 @@ const Step_3 = () => {
 
       {/* Next Button */}
       <div className="w-full flex gap-4 mt-8">
-        <button
-          onClick={handleSubmit}
-          className="w-full py-3 text-md bg-emerald-600 hover:bg-emerald-700 rounded-md text-white font-semibold tracking-wide transition">
-          Next
-        </button>
       </div>
     </div>
   );
