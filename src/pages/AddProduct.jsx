@@ -13,28 +13,118 @@ const Add = ({token}) => {
 
   // state to tell wich step to move
   const [step, setStep] = useState(1)
+  const [productImages, setProductImages] = useState([]);
 
-  const [productData, setProdcutData] = useState({
-       category: "", 
-       seubcategory: "",
-       title: "",
-       name: "",
-       description: "",
-       highlights: [],
-       varients: [{
-        color: "",
-        sizes: [{
-          size: "",
-          price: null,
-          stock: null,
-        }],
 
-        images: [],
-        price: null,
-        stock: 1,
-       }],
-       discount: null,
-  })
+  // const productSchema = new mongoose.Schema({
+  //   sellerId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  
+  //   // Step 1: Basic Info
+  //   title: { type: String, required: true },
+  //   description: { type: String },
+  //   category: { type: String },
+  //   subcategory: { type: String },
+  //   name: { type: String },
+  
+  //   // Step 3: Attributes & Specifications
+  //   attributes: {
+  //     specs: [String], // array of specifications
+  //     dimensions: {
+  //       length: { type: Number },
+  //       width: { type: Number },
+  //       height: { type: Number },
+  //       dimUnit: { type: String, default: "cm" }, // unit for length/width/height
+  //       weight: { type: Number },
+  //       weightUnit: { type: String, default: "g" } // unit for weight
+  //     }
+  //   },
+  
+  //   // Step 2: Variants
+  //   variants: [
+  //     {
+  //       color: { type: String },
+  //       images: [String], // Cloudinary URLs
+  //       price: { type: Number },
+  //       stock: { type: Number },
+  //       sizes: [
+  //         {
+  //           size: { type: String },
+  //           price: { type: Number },
+  //           stock: { type: Number }
+  //         }
+  //       ]
+  //     }
+  //   ],
+  
+  //   // Step 4: Meta Details
+  //   brand: { type: String },
+  //   model: { type: String },
+  //   warranty: { type: String },
+  //   discount: { type: Number, default: 0 },
+  //   bestSeller: { type: Boolean, default: false },
+  
+  //   // Step 5: Delivery Details
+  //   delivery: {
+  //     COD: { type: Boolean, default: true },
+  //     returnPolicy: { type: Number }, // days
+  //     shippingTime: { type: Number }, // days
+  //     deliveryAreas: [String] // array of pincodes
+  //   }
+  
+  // }, { timestamps: true });
+
+ //prepare form data to send to backend
+ const prepareFormData = (formData) => {
+  // Append basic info
+  formData.append("title", basicInfo.title);
+  formData.append("description", basicInfo.description);
+  formData.append("category", basicInfo.category);
+  formData.append("subcategory", basicInfo.subcategory);
+  // Append variants
+  const variants = prepareVariantsForSubmission(preVariants);
+  formData.append("variants", JSON.stringify(variants));
+  // Append attributes
+  formData.append("attributes", JSON.stringify(attributes));
+  // Append meta details
+  formData.append("brand", metadetails.brand);
+  formData.append("model", metadetails.model);
+  formData.append("warranty", metadetails.warranty);
+  formData.append("discount", metadetails.discount);
+  // Append delivery details
+  formData.append("delivery", JSON.stringify(deliveryDetails));
+  // Append images
+
+  productImages.forEach((image, index) => {
+    formData.append("images", image);
+  });
+}
+
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const formData = new FormData();
+  prepareFormData(formData);
+
+  try {
+    const response = await fetch('http://localhost:5000/api/product/add', {
+      method: 'POST',
+      headers: {  
+        'Authorization': `Bearer ${token}`,
+      },
+      credentials: 'include',
+      body: formData
+    });
+    console.log("response",response)
+    const data = await response.json(); 
+    console.log("Response from server:", data);
+  } catch (error) {
+    console.error("Error submitting form:", error);
+  }
+}
+
+
+
+  
 
 //state for basic info used in step 1
   const [basicInfo, setBasicInfo] = useState({
@@ -44,8 +134,10 @@ const Add = ({token}) => {
     subcategory: "",
   })
 //state for varients used in step 2
-  const [variants, setVariants] = useState([
-    { color: "", images: [], sizes: [] ,
+  const [preVariants, setpreVariants] = useState([
+    { color: "",
+      images: [],
+      sizes: [] ,
       price: null,
       stock: null
     }
@@ -62,7 +154,6 @@ const [activeCount, setActiveCount] = useState(1);
         weight: "",
         weightUnit: "g",
       },
-
       specs: ["", "", ""],
  })
 
@@ -104,6 +195,16 @@ const [deliveryDetails, setDeliveryDetails] = useState({
     }
   }
 
+
+  //convert all files in varient to null before sending to backend
+  const prepareVariantsForSubmission = (variants) => {
+    return variants.map(variant => {
+      const updatedVariant = { ...variant };
+      updatedVariant.images = variant.images.map(() => null);
+      return updatedVariant;
+    });
+  }
+
  
 
   return (
@@ -113,11 +214,11 @@ const [deliveryDetails, setDeliveryDetails] = useState({
 {/* product listing goes here */}
 
 
-<div className="w-full flex-2 overflow-y-auto flex flex-col bg-white rounded-md  justify-baseline-center items-baseline-center">
+<form onSubmit={handleSubmit} className="w-full flex-2 overflow-y-auto flex flex-col bg-white rounded-md  justify-baseline-center items-baseline-center">
 
 { step === 1 && <Step_1 basicInfo={basicInfo}  setBasicInfo={setBasicInfo}/> }
 
-{ step === 2 && <Step_2 variants={variants}  setVariants={setVariants}/>  }
+{ step === 2 && <Step_2 variants={preVariants}  setVariants={setpreVariants} productImages={productImages} setProductImages={setProductImages} />}
 
 { step === 3 && <Step_3 attributes={attributes} setAttributes={setAttributes}
 activeCount={activeCount} setActiveCount={setActiveCount}/>}
@@ -126,21 +227,31 @@ activeCount={activeCount} setActiveCount={setActiveCount}/>}
 
 { step === 5 &&  <Step_5 deliveryDetails={deliveryDetails} setDeliveryDetails={setDeliveryDetails}/>}
 
+
+
      <div className="flex py-1 px-6 gap-2">
-      { step > 1 &&  <button onClick={handleBack} className="w-full  p-2 text-md  rounded-sm text-black bg-white font mt-2 mb-2 flex justify-center items-center cursor-pointer shadow-xs border border-white hover:border-gray-200"><ion-icon name="arrow-back-outline"></ion-icon> Back</button>
+      { step > 1 &&  <button type="button" onClick={handleBack} className="w-full  p-2 text-md  rounded-sm text-black bg-white font mt-2 mb-2 flex justify-center items-center cursor-pointer shadow-xs border border-white hover:border-gray-200"><ion-icon name="arrow-back-outline"></ion-icon> Back</button>
       }
 
 
-          <button onClick={handleNext} className="w-full  p-2 text-md bg-black rounded-sm text-white mt-2 mb-2 flex justify-center items-center cursor-pointer">
-            {step === 5 ? "Publish Product": "Next"}
-            {step < 5 && <ion-icon name="arrow-forward-outline"></ion-icon>}
-          </button>
+      {step < 5 ?  
+      <button type="button" onClick={handleNext} className="w-full  p-2 text-md bg-black rounded-sm text-white mt-2 mb-2 flex justify-center items-center cursor-pointer">
+            Next
+      <ion-icon name="arrow-forward-outline"></ion-icon>
+      </button> : 
+      <button type="submit" className="w-full  p-2 text-md bg-black rounded-sm text-white mt-2 mb-2 flex justify-center items-center cursor-pointer">
+            Submit 
+      </button>
+      }
+         
+
+
      </div>
-</div>
+</form>
 
 {/* guide component on right side */}
   <div className="w-full flex-1 pb-2 ">
-    <SampleCard newProduct={productData}/>
+    {/* <SampleCard newProduct={productData}/> */}
   </div>
    
   </div>

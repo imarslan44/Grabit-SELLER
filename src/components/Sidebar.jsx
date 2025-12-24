@@ -1,5 +1,6 @@
 import React from 'react'
 import {NavLink} from "react-router-dom"
+
 const Sidebar = () => {
   return (
     <aside className="bg-white w-[18%] h-screen p-6 shadow-lg flex flex-col justify-between">
@@ -48,7 +49,7 @@ const Sidebar = () => {
         Orders
       </NavLink>
       <NavLink 
-        to="/listing" 
+        to="/add-product" 
         className={({isActive}) => 
           `block px-4 py-2 rounded-md transition ${
             isActive ? "bg-lime-500 text-white font-semibold" : "text-gray-700 hover:bg-gray-100"

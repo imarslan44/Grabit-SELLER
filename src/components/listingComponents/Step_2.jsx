@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Step_2 = ({variants, setVariants}) => {
+const Step_2 = ({variants, setVariants, productImages, setProductImages}) => {
   
 
 
@@ -11,17 +11,23 @@ const Step_2 = ({variants, setVariants}) => {
     updated[index][field] = value;
     setVariants(updated);
   };
+
   // Handle removing a size
 const removeSize = (variantIndex, sizeIndex) => {
   const updated = [...variants];
   updated[variantIndex].sizes.splice(sizeIndex, 1);
   setVariants(updated);
 };
+
   // Handle image upload
   const handleImageUpload = (index, slot, file) => {
     const updated = [...variants];
+    
     updated[index].images[slot] = file;
+    const imagesArray = [...productImages];
+    imagesArray.push(file);
     setVariants(updated);
+    setProductImages(imagesArray);
   };
 
   
@@ -46,7 +52,7 @@ const removeSize = (variantIndex, sizeIndex) => {
 
   // Add new color variant
   const addVariant = () => {
-    setVariants([...variants, { color: "", images: [], sizes: [] }]);
+    setVariants([...variants, { color: "", images: [], price, stock, sizes: [] }]);
   };
 
 
@@ -55,6 +61,7 @@ const removeVarient = (index)=>{
   const updated = [...variants];
   updated.splice(index, 1);
   setVariants(updated);
+
   
 }
 

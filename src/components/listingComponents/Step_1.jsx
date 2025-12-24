@@ -15,7 +15,7 @@ const Step_1 = ({ basicInfo, setBasicInfo }) => {
 
 
   return (
-    <form className=" flex-2  bg-white p-8 w-full  space-y-2 ">
+    <div className=" flex-2  bg-white p-8 w-full  space-y-2 ">
       <h2 className="text-xl font-semibold text-gray-800">Step 1: Basic Info</h2>
 
       {/* Product Title */}
@@ -85,7 +85,7 @@ const Step_1 = ({ basicInfo, setBasicInfo }) => {
 
        
       </div>
-    </form>
+    </div>
   );
 };
 
