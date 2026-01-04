@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Step_2 = ({variants, setVariants, productImages, setProductImages}) => {
+const Step_2 = ({variants, setVariants, productImages, setProductImages, handleNext, handleBack}) => {
   
 
 
@@ -69,7 +69,7 @@ const removeVarient = (index)=>{
 
   return (
 
-    <div className="p-6 bg-gray-50 ">
+    <form onSubmit={handleNext} className="p-6 bg-gray-50 ">
 
       <h2 className="text-2xl font-bold mb-4">Variants</h2>
 
@@ -93,6 +93,7 @@ const removeVarient = (index)=>{
             onChange={(e) => handleColorChange(vIndex, "color", e.target.value)}
             placeholder="Color name."
             className="mb-3 w-1/4 border px-3 py-2 rounded"
+             required
           />
         <input
            type="number"
@@ -145,6 +146,7 @@ const removeVarient = (index)=>{
         onChange={(e) =>
           handleImageUpload(vIndex, i, e.target.files[0])
         }
+        reqired={i === 0}
       />
     </label>
   ))}
@@ -161,7 +163,8 @@ const removeVarient = (index)=>{
       type="text"
       placeholder="Size"
       value={size.size}
-      onChange={(e)=>handleSizeChange(vIndex, sIndex, "size", e.target.value)} className="border px-2 py-1 rounded  w-1/5" />
+      onChange={(e)=>handleSizeChange(vIndex, sIndex, "size", e.target.value)} className="border px-2 py-1 rounded  w-1/5" 
+      required/>
 
       <input 
         type="number"
@@ -171,6 +174,7 @@ const removeVarient = (index)=>{
           handleSizeChange(vIndex, sIndex, "price", e.target.value)
         }
         className="border px-2 py-1 rounded  w-1/5"
+        required
       />
       <input
         type="number"
@@ -181,6 +185,7 @@ const removeVarient = (index)=>{
           handleSizeChange(vIndex, sIndex, "stock", e.target.value)
         }
         className="border px-2 py-1 rounded  w-1/5"
+        required
       />
       {/* Remove Icon */}
       <button
@@ -210,7 +215,16 @@ const removeVarient = (index)=>{
       >
         + Add Another Color Variant
       </button>
-    </div>
+
+      <div className="flex py-1 px-6 gap-2">
+        <button type="button" onClick={handleBack} className="w-full  p-2 text-md  rounded-sm text-black bg-white font mt-2 mb-2 flex justify-center items-center cursor-pointer shadow-xs border border-white hover:border-gray-200"><ion-icon name="arrow-back-outline"></ion-icon> Back
+        </button>
+          
+        <button type="submit"  className="w-full  p-2 text-md bg-black rounded-sm text-white mt-2 mb-2 flex justify-center items-center cursor-pointer">
+              Next <ion-icon name="arrow-forward-outline"></ion-icon>
+        </button> 
+      </div>
+    </form>
  
   );
 };

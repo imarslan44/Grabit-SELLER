@@ -5,6 +5,7 @@ import { Routes, Route } from 'react-router-dom'
 import Register from './pages/Register.jsx'
 import ProtectedRoutes from './routes/ProtectedRoutes.jsx'
 import Login from './pages/Login.jsx'
+import Orders from './pages/Orders.jsx'
 
 const App = () => {
   //log each component to catch error
@@ -14,13 +15,14 @@ const App = () => {
     <div className="w-screen bg-gray-100 flex ">
     <Sidebar/>
     <Routes>
-      <Route path="/" element={<>Insights</>}/>
-      <Route path="/orders" element={<>Orders</>}/>
+      
       {/* protect this with protected route */}
 
-      <Route element={<ProtectedRoutes/>}>
+    <Route element={<ProtectedRoutes/>}>
+        <Route path="/" element={<>Insights</>}/>
+        <Route path="/orders" element={<Orders/>}/>
         <Route path="/add-product" element={<Add/>}/>
-      </Route>
+    </Route>
       <Route path="/login" element={<Login/>}></Route>
       <Route path="/register" element={<Register/>}/>  
     </Routes>  

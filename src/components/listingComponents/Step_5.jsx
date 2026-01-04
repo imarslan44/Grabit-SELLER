@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Step_5 = ({ deliveryDetails, setDeliveryDetails }) => {
+const Step_5 = ({ deliveryDetails, setDeliveryDetails, handleSubmit, handleBack }) => {
   const [pincodeInput, setPincodeInput] = useState("");
 
   const handleChange = (field, value) => {
@@ -24,7 +24,7 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails }) => {
   };
 
   return (
-    <div className="p-6 bg-gray-50 rounded-md ">
+    <form onSubmit={handleSubmit} className="p-6 bg-gray-50 rounded-md ">
       <h2 className="text-2xl font-bold mb-4">Step 5: Delivery Details</h2>
 
       {/* COD */}
@@ -46,6 +46,7 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails }) => {
           onChange={(e) => handleChange("returnPolicy", e.target.value)}
           placeholder="Enter return policy in days"
           className="w-full border px-3 py-2 rounded"
+          required
         />
       </div>
 
@@ -58,6 +59,7 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails }) => {
           onChange={(e) => handleChange("shippingTime", e.target.value)}
           placeholder="Enter shipping time in days"
           className="w-full border px-3 py-2 rounded"
+          required
         />
       </div>
 
@@ -71,6 +73,7 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails }) => {
             onChange={(e) => setPincodeInput(e.target.value)}
             placeholder="Enter pincode"
             className="border px-3 py-2 rounded flex-1"
+            required={deliveryDetails.deliveryAreas.length === 0}
           />
           <button
             type="button"
@@ -81,6 +84,7 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails }) => {
           </button>
         </div>
         <ul className="space-y-1">
+
           {deliveryDetails.deliveryAreas.map((pincode, index) => (
             <li
               key={index}
@@ -98,7 +102,15 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails }) => {
           ))}
         </ul>
       </div>
-    </div>
+        <div className="flex py-1 px-6 gap-2">
+        <button type="button" onClick={handleBack} className="w-full  p-2 text-md  rounded-sm text-black bg-white font mt-2 mb-2 flex justify-center items-center cursor-pointer shadow-xs border border-white hover:border-gray-200"><ion-icon name="arrow-back-outline"></ion-icon> Back
+        </button>
+          
+        <button type="submit"  className="w-full  p-2 text-md bg-black rounded-sm text-white mt-2 mb-2 flex justify-center items-center cursor-pointer">
+              Submit <ion-icon name="arrow-forward-outline"></ion-icon>
+        </button> 
+      </div>
+    </form>
   );
 };
 

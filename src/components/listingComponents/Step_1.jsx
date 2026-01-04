@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const Step_1 = ({ basicInfo, setBasicInfo }) => {
+const Step_1 = ({ basicInfo, setBasicInfo, handleNext }) => {
 
 
   const handleChange = (e) =>{
@@ -15,7 +15,7 @@ const Step_1 = ({ basicInfo, setBasicInfo }) => {
 
 
   return (
-    <div className=" flex-2  bg-white p-8 w-full  space-y-2 ">
+    <form onSubmit={handleNext} className=" flex-2  bg-white p-8 w-full  space-y-2 ">
       <h2 className="text-xl font-semibold text-gray-800">Step 1: Basic Info</h2>
 
       {/* Product Title */}
@@ -24,6 +24,7 @@ const Step_1 = ({ basicInfo, setBasicInfo }) => {
           Product Title
         </label>
         <input
+
           type="text"
           name="title"
           value={basicInfo.title || ""}
@@ -62,6 +63,7 @@ const Step_1 = ({ basicInfo, setBasicInfo }) => {
           onChange={handleChange}
           placeholder="Enter the category this item belongs"
           className="w-full px-3 py-2 border rounded-sm focus:outline-none focus:ring focus:ring-gray-700"
+          
         />
       </div>
 
@@ -85,7 +87,16 @@ const Step_1 = ({ basicInfo, setBasicInfo }) => {
 
        
       </div>
-    </div>
+      <div className="flex py-1 px-6 gap-2">
+        
+          
+        <button type="submit"  className="w-full  p-2 text-md bg-black rounded-sm text-white mt-2 mb-2 flex justify-center items-center cursor-pointer">
+              Next <ion-icon name="arrow-forward-outline"></ion-icon>
+        </button> 
+      </div>
+
+
+    </form>
   );
 };
 

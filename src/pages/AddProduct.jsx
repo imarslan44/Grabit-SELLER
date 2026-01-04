@@ -133,6 +133,7 @@ const handleSubmit = async (e) => {
     category: "",
     subcategory: "",
   })
+
 //state for varients used in step 2
   const [preVariants, setpreVariants] = useState([
     { color: "",
@@ -214,40 +215,23 @@ const [deliveryDetails, setDeliveryDetails] = useState({
 {/* product listing goes here */}
 
 
-<form onSubmit={handleSubmit} className="w-full flex-2 overflow-y-auto flex flex-col bg-white rounded-md  justify-baseline-center items-baseline-center">
+<div  className="w-full flex-2 overflow-y-auto flex flex-col bg-white rounded-md  justify-baseline-center items-baseline-center">
 
-{ step === 1 && <Step_1 basicInfo={basicInfo}  setBasicInfo={setBasicInfo}/> }
+{ step === 1 && <Step_1 handleNext={handleNext} basicInfo={basicInfo}  setBasicInfo={setBasicInfo}/> }
 
-{ step === 2 && <Step_2 variants={preVariants}  setVariants={setpreVariants} productImages={productImages} setProductImages={setProductImages} />}
+{ step === 2 && <Step_2 handleBack={handleBack} handleNext={handleNext} variants={preVariants}  setVariants={setpreVariants} productImages={productImages} setProductImages={setProductImages} />}
 
-{ step === 3 && <Step_3 attributes={attributes} setAttributes={setAttributes}
+{ step === 3 && <Step_3 handleBack={handleBack} handleNext={handleNext} attributes={attributes} setAttributes={setAttributes}
 activeCount={activeCount} setActiveCount={setActiveCount}/>}
 
-{ step === 4 &&  <Step_4 metadetails={metadetails} setMetaDetails={setMetaDetails} /> }
+{ step === 4 &&  <Step_4 handleBack={handleBack} handleNext={handleNext} metadetails={metadetails} setMetaDetails={setMetaDetails} /> }
 
-{ step === 5 &&  <Step_5 deliveryDetails={deliveryDetails} setDeliveryDetails={setDeliveryDetails}/>}
-
-
-
-     <div className="flex py-1 px-6 gap-2">
-      { step > 1 &&  <button type="button" onClick={handleBack} className="w-full  p-2 text-md  rounded-sm text-black bg-white font mt-2 mb-2 flex justify-center items-center cursor-pointer shadow-xs border border-white hover:border-gray-200"><ion-icon name="arrow-back-outline"></ion-icon> Back</button>
-      }
+{ step === 5 &&  <Step_5 handleBack={handleBack} handleSubmit={handleSubmit} deliveryDetails={deliveryDetails} setDeliveryDetails={setDeliveryDetails}/>}
 
 
-      {step < 5 ?  
-      <button type="button" onClick={handleNext} className="w-full  p-2 text-md bg-black rounded-sm text-white mt-2 mb-2 flex justify-center items-center cursor-pointer">
-            Next
-      <ion-icon name="arrow-forward-outline"></ion-icon>
-      </button> : 
-      <button type="submit" className="w-full  p-2 text-md bg-black rounded-sm text-white mt-2 mb-2 flex justify-center items-center cursor-pointer">
-            Submit 
-      </button>
-      }
-         
 
-
-     </div>
-</form>
+     
+</div>
 
 {/* guide component on right side */}
   <div className="w-full flex-1 pb-2 ">

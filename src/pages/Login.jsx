@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { SET_TOKEN } from '../context/seller.slice.js';
 import {  useNavigate } from 'react-router-dom';
+import { BACKEND_URL } from '../config/env.js';
 const Login = () => {
 
   const [credentials, setCredentials] = useState({
@@ -28,8 +29,8 @@ const Login = () => {
       return;
     }
     try{
-
-      const res = await fetch("http://localhost:5000/api/seller/sign-in", {
+     const url = `${BACKEND_URL}/api/seller/sign-in`
+      const res = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,6 +39,7 @@ const Login = () => {
         body: JSON.stringify(credentials),
       })
       const data = await res.json();
+
       console.log("Seller login response:", data);
       if(data.token){
         localStorage.setItem("sellerToken", data.token);

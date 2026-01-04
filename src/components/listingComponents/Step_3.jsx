@@ -1,6 +1,6 @@
-import React, {useEffect, useState } from "react";
+import React from "react";
 
-const Step_3 = ({attributes, setAttributes, activeCount, setActiveCount}) => {
+const Step_3 = ({attributes, setAttributes, activeCount, setActiveCount, handleNext, handleBack}) => {
 
    const {dimensions, specs} = attributes;
 
@@ -52,7 +52,7 @@ const removeSpec = (index) => {
 
 
   return (
-    <div className="bg-gray-50  px-8 ">
+    <form onSubmit={handleNext} className="bg-gray-50  px-8 ">
       <h2 className="text-3xl font-bold text-gray-900 tracking-tight border-b pb-4">
         Step 3: Specifications / Highlights
       </h2>
@@ -69,6 +69,7 @@ const removeSpec = (index) => {
             onChange={(e) => handleDimensionChange("length", e.target.value)}
             placeholder="e.g. 20"
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            required
           />
         </div>
         <div>
@@ -81,6 +82,7 @@ const removeSpec = (index) => {
             onChange={(e) => handleDimensionChange("width", e.target.value)}
             placeholder="e.g. 10"
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            required
           />
         </div>
         <div>
@@ -122,6 +124,7 @@ const removeSpec = (index) => {
             onChange={(e) => handleDimensionChange("weight", e.target.value)}
             placeholder="e.g. 500"
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            required
           />
         </div>
         <div>
@@ -178,9 +181,16 @@ const removeSpec = (index) => {
       </button>
 
       {/* Next Button */}
-      <div className="w-full flex gap-4 mt-8">
+      <div className="flex py-1 px-6 gap-2">
+        <button type="button" onClick={handleBack} className="w-full  p-2 text-md  rounded-sm text-black bg-white font mt-2 mb-2 flex justify-center items-center cursor-pointer shadow-xs border border-white hover:border-gray-200"><ion-icon name="arrow-back-outline"></ion-icon> Back
+        </button> 
+          
+        <button type="submit"  className="w-full  p-2 text-md bg-black rounded-sm text-white mt-2 mb-2 flex justify-center items-center cursor-pointer">
+              Next <ion-icon name="arrow-forward-outline"></ion-icon>
+        </button> 
       </div>
-    </div>
+      
+    </form>
   );
 };
 
