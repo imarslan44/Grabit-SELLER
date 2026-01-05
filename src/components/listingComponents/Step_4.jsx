@@ -68,7 +68,7 @@ const Step_4 = ({ metadetails, setMetaDetails, handleNext, handleBack}) => {
         </select>
       </div>
 
-      <div className="flex py-1 px-6 gap-2">
+      <div className="flex py-1  gap-2">
         <button type="button" onClick={handleBack} className="w-full  p-2 text-md  rounded-sm text-black bg-white font mt-2 mb-2 flex justify-center items-center cursor-pointer shadow-xs border border-white hover:border-gray-200">
           <ion-icon name="arrow-back-outline"></ion-icon> Back
         </button>

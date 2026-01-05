@@ -64,9 +64,9 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails, handleSubmit, handleBack 
       </div>
 
       {/* Delivery Areas */}
-      <div className="mb-4">
+      <div className="mb-4 max-h-45 ">
         <label className="block mb-2 font-medium">Delivery Areas (Pincodes)</label>
-        <div className="flex gap-2 mb-2">
+        <div className="flex gap-2 mb-2 ">
           <input
             type="text"
             value={pincodeInput}
@@ -83,7 +83,7 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails, handleSubmit, handleBack 
             + Add
           </button>
         </div>
-        <ul className="space-y-1">
+        <ul className="space-y-1 max-h-30  overflow-auto">
 
           {deliveryDetails.deliveryAreas.map((pincode, index) => (
             <li
@@ -102,7 +102,7 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails, handleSubmit, handleBack 
           ))}
         </ul>
       </div>
-        <div className="flex py-1 px-6 gap-2">
+        <div className="flex py-1  gap-2">
         <button type="button" onClick={handleBack} className="w-full  p-2 text-md  rounded-sm text-black bg-white font mt-2 mb-2 flex justify-center items-center cursor-pointer shadow-xs border border-white hover:border-gray-200"><ion-icon name="arrow-back-outline"></ion-icon> Back
         </button>
           

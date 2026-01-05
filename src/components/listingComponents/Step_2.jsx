@@ -52,7 +52,7 @@ const removeSize = (variantIndex, sizeIndex) => {
 
   // Add new color variant
   const addVariant = () => {
-    setVariants([...variants, { color: "", images: [], price, stock, sizes: [] }]);
+    setVariants([...variants, { color: "", images: [], price:"", stock:"", sizes: [] }]);
   };
 
 
@@ -69,7 +69,7 @@ const removeVarient = (index)=>{
 
   return (
 
-    <form onSubmit={handleNext} className="p-6 bg-gray-50 ">
+    <form onSubmit={handleNext} className="p-6 bg-gray-50 h-screen overflow-auto pb-20">
 
       <h2 className="text-2xl font-bold mb-4">Variants</h2>
 
@@ -216,7 +216,7 @@ const removeVarient = (index)=>{
         + Add Another Color Variant
       </button>
 
-      <div className="flex py-1 px-6 gap-2">
+      <div className="flex py-1 px-6 gap-2 absolute bottom-0 w-full left-0 bg-gray-200/90 pb-4 ">
         <button type="button" onClick={handleBack} className="w-full  p-2 text-md  rounded-sm text-black bg-white font mt-2 mb-2 flex justify-center items-center cursor-pointer shadow-xs border border-white hover:border-gray-200"><ion-icon name="arrow-back-outline"></ion-icon> Back
         </button>
           

@@ -16,63 +16,6 @@ const Add = ({token}) => {
   const [productImages, setProductImages] = useState([]);
 
 
-  // const productSchema = new mongoose.Schema({
-  //   sellerId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  
-  //   // Step 1: Basic Info
-  //   title: { type: String, required: true },
-  //   description: { type: String },
-  //   category: { type: String },
-  //   subcategory: { type: String },
-  //   name: { type: String },
-  
-  //   // Step 3: Attributes & Specifications
-  //   attributes: {
-  //     specs: [String], // array of specifications
-  //     dimensions: {
-  //       length: { type: Number },
-  //       width: { type: Number },
-  //       height: { type: Number },
-  //       dimUnit: { type: String, default: "cm" }, // unit for length/width/height
-  //       weight: { type: Number },
-  //       weightUnit: { type: String, default: "g" } // unit for weight
-  //     }
-  //   },
-  
-  //   // Step 2: Variants
-  //   variants: [
-  //     {
-  //       color: { type: String },
-  //       images: [String], // Cloudinary URLs
-  //       price: { type: Number },
-  //       stock: { type: Number },
-  //       sizes: [
-  //         {
-  //           size: { type: String },
-  //           price: { type: Number },
-  //           stock: { type: Number }
-  //         }
-  //       ]
-  //     }
-  //   ],
-  
-  //   // Step 4: Meta Details
-  //   brand: { type: String },
-  //   model: { type: String },
-  //   warranty: { type: String },
-  //   discount: { type: Number, default: 0 },
-  //   bestSeller: { type: Boolean, default: false },
-  
-  //   // Step 5: Delivery Details
-  //   delivery: {
-  //     COD: { type: Boolean, default: true },
-  //     returnPolicy: { type: Number }, // days
-  //     shippingTime: { type: Number }, // days
-  //     deliveryAreas: [String] // array of pincodes
-  //   }
-  
-  // }, { timestamps: true });
-
  //prepare form data to send to backend
  const prepareFormData = (formData) => {
   // Append basic info
@@ -146,6 +89,7 @@ const handleSubmit = async (e) => {
 
 //state for attributes and specifications used in step 3
 const [activeCount, setActiveCount] = useState(1);
+
  const [attributes, setAttributes] = useState({
     dimensions: { 
         length: "",
@@ -215,7 +159,7 @@ const [deliveryDetails, setDeliveryDetails] = useState({
 {/* product listing goes here */}
 
 
-<div  className="w-full flex-2 overflow-y-auto flex flex-col bg-white rounded-md  justify-baseline-center items-baseline-center">
+<div  className="w-full flex-2  flex flex-col bg-white rounded-md  justify-baseline-center items-baseline-center relative">
 
 { step === 1 && <Step_1 handleNext={handleNext} basicInfo={basicInfo}  setBasicInfo={setBasicInfo}/> }
 
