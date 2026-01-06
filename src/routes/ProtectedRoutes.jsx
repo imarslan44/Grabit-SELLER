@@ -22,10 +22,6 @@ const ProtectedRoutes = () => {
          authorize()
     }, [])
     
-    useEffect(() => {
-       console.log(isAuthorized)
-    }, [isAuthorized])
-    
    
 
     return isAuthorized ? <Outlet /> : <Navigate to="/login" />;

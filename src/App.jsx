@@ -12,7 +12,7 @@ const App = () => {
   
   
   return (
-    <div className="w-screen bg-gray-100 flex ">
+    <section className="w-[100vw] bg-gray-100 flex ">
     <Sidebar/>
     <Routes>
       
@@ -26,7 +26,7 @@ const App = () => {
       <Route path="/login" element={<Login/>}></Route>
       <Route path="/register" element={<Register/>}/>  
     </Routes>  
-    </div>
+    </section>
   )
 }
 
