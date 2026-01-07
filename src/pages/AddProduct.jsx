@@ -7,7 +7,11 @@ import Step_2 from '../components/listingComponents/Step_2';
 import Step_3 from '../components/listingComponents/Step_3';
 import Step_4 from '../components/listingComponents/Step_4';
 import Step_5 from '../components/listingComponents/Step_5';
-
+import Step1 from '../components/listingComponents/GuideComponents/Step1';
+import Step2 from '../components/listingComponents/GuideComponents/step2';
+import Step3 from '../components/listingComponents/GuideComponents/Step3';
+import Step4 from '../components/listingComponents/GuideComponents/step4';
+import Step5 from '../components/listingComponents/GuideComponents/Step5';
 
 const Add = ({token}) => {
 
@@ -171,15 +175,18 @@ activeCount={activeCount} setActiveCount={setActiveCount}/>}
 { step === 4 &&  <Step_4 handleBack={handleBack} handleNext={handleNext} metadetails={metadetails} setMetaDetails={setMetaDetails} /> }
 
 { step === 5 &&  <Step_5 handleBack={handleBack} handleSubmit={handleSubmit} deliveryDetails={deliveryDetails} setDeliveryDetails={setDeliveryDetails}/>}
-
-
-
-     
+    
 </div>
 
 {/* guide component on right side */}
   <div className="w-full flex-1 pb-2 ">
-    {/* <SampleCard newProduct={productData}/> */}
+       
+    {step === 1 && <Step1/>}
+    {step === 2 && <Step2/>}
+    {step === 3 && <Step3/>}
+    {step === 4 && <Step4/>}
+    {step === 5 && <Step5/>}
+
   </div>
    
   </div>

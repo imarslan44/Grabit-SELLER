@@ -28,13 +28,15 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails, handleSubmit, handleBack 
       <h2 className="text-2xl font-bold mb-4">Step 5: Delivery Details</h2>
 
       {/* COD */}
-      <div className="mb-4 flex items-center gap-2">
-        <label className="font-medium">Cash on Delivery (COD)</label>
-        <input
+      <div className="mb-4 flex items-center  justify-start gap-2 bg-gray-200 rounded-sm ">
+        <label className="font-medium  p-3 rounded-xs  w-1/3 text-nowrap flex gap-2.5">Cash on Delivery (COD)
+            <input
           type="checkbox"
           checked={deliveryDetails.COD}
           onChange={(e) => handleChange("COD", e.target.checked)}
         />
+        </label>
+      
       </div>
 
       {/* Return Policy */}

@@ -90,6 +90,7 @@ const removeVarient = (index)=>{
         <input
             type="text"
             value={variant.color}
+            
             onChange={(e) => handleColorChange(vIndex, "color", e.target.value)}
             placeholder="Color name."
             className="mb-3 w-1/4 border px-3 py-2 rounded"
@@ -98,6 +99,7 @@ const removeVarient = (index)=>{
         <input
            type="number"
            name="price"
+           required={variant?.sizes?.length ===0}
            value={variant.price || ""}
            onChange={(e) => handleColorChange(vIndex, "price", e.target.value)}
            placeholder="Price in Rs."
@@ -109,6 +111,7 @@ const removeVarient = (index)=>{
 <input
   type="number"
   name="stock"
+  required={variant?.sizes?.length ===0}
   value={variant.stock || ""}
   onChange={(e) => handleColorChange(vIndex, "stock", e.target.value)}
   placeholder="Stock qty."
@@ -125,12 +128,15 @@ const removeVarient = (index)=>{
 
 
 <div className="flex gap-4 mb-3">
-  {[...Array(4)].map((_, i) => (
-    <label
+  {[...Array(4)].map((_, i) => {
+   const requiredImage = i === 0;
+
+   return (<label
       key={i}
-      className="w-24 h-24 border-2 border-dashed rounded-md flex items-center justify-center cursor-pointer bg-gray-50 hover:border-indigo-500 transition"
+      className="w-24 h-24 border-2 border-dashed rounded-md flex items-center justify-center cursor-pointer bg-gray-50 hover:border-indigo-500 transition relative"
     >
       {variant.images[i] ? (
+        
         <img
           src={URL.createObjectURL(variant.images[i])}
           alt="preview"
@@ -142,14 +148,15 @@ const removeVarient = (index)=>{
       <input
         type="file"
         accept="image/*"
-        className="hidden"
+        className="w-20 opacity-0 absolute"
+        required={requiredImage}
         onChange={(e) =>
           handleImageUpload(vIndex, i, e.target.files[0])
         }
-        reqired={i === 0}
+        
       />
-    </label>
-  ))}
+    </label> )
+})}
 </div>
 
 
@@ -206,7 +213,9 @@ const removeVarient = (index)=>{
   </button>
 </div>
         </div>
-      ))}
+      ))
+      
+}
 
       <button
         type="button"
@@ -216,7 +225,7 @@ const removeVarient = (index)=>{
         + Add Another Color Variant
       </button>
 
-      <div className="flex py-1 px-6 gap-2 absolute bottom-0 w-full left-0 bg-gray-200/90 pb-4 ">
+      <div className="flex py-1  gap-2 absolute bottom-0 w-full left-0 bg-white/80 backdrop-blur-sm pb-4 ">
         <button type="button" onClick={handleBack} className="w-full  p-2 text-md  rounded-sm text-black bg-white font mt-2 mb-2 flex justify-center items-center cursor-pointer shadow-xs border border-white hover:border-gray-200"><ion-icon name="arrow-back-outline"></ion-icon> Back
         </button>
           

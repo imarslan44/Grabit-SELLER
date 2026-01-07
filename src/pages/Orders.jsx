@@ -59,7 +59,7 @@ const Orders = () => {
   return (
     <div className="w-[82vw] relative">
       {/* Header + Nav */}
-      <header className="flex gap-5 p-3 w-full bg-gray-900 text-white absolute top-0 ">
+      <header className="flex gap-5 p-3 w-full bg-gray-900 text-white absolute top-0 z-100">
         <h1 className="text-xl font-semibold">Orders</h1>
         <nav className="flex px-3 gap-3">
           {["PLACED", "SHIPPED", "DELIVERED", "CANCELLED", "OUT_FOR_DELIVERY", "RETURNED"].map((status) => (
@@ -165,7 +165,7 @@ const Orders = () => {
                 </div>
 
                 {/* ADDRESS DETAILS */}
-          <div className=" w-full absolute bg-gray-100/80 backdrop-blur-sm -bottom-24 hover:bottom-0 transition-all duration-400">
+          <div className=" w-full h-full absolute bg-gray-100/80 backdrop-blur-sm -bottom-full hover:bottom-0 transition-all duration-400">
             <h3 className=" font-semibold text-gray-500 w-25 bg-gray-100/90  relative  -top-7 rounded-t-sm p-1 Hover:w-full text-sm  " >ADDRESS...</h3>
             <ul className="flex gap-x-2 gap-y-1 flex-wrap z-100 relative -top-4 p-2">
               <li className="flex flex-col bg-white p-1  rounded-xs">

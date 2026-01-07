@@ -16,7 +16,7 @@ const Step_1 = ({ basicInfo, setBasicInfo, handleNext }) => {
 
   return (
     <form onSubmit={handleNext} className=" flex-2  bg-white p-8 w-full  space-y-2 ">
-      <h2 className="text-xl font-semibold text-gray-800">Step 1: Basic Info</h2>
+      <h2 className="text-xl font-semibold text-gray-800">Basic Info</h2>
 
       {/* Product Title */}
       <div>
@@ -87,7 +87,7 @@ const Step_1 = ({ basicInfo, setBasicInfo, handleNext }) => {
 
        
       </div>
-      <div className="flex py-1 px-6 gap-2">
+      <div className="flex py-1  gap-2">
         
           
         <button type="submit"  className="w-full  p-2 text-md bg-black rounded-sm text-white mt-2 mb-2 flex justify-center items-center cursor-pointer">
