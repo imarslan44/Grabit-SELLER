@@ -139,9 +139,9 @@ const Orders = () => {
                 {/* Status + Update */}
                 <div className="mt-3 flex justify-between items-center col-start-3 col-span-full p-3">
                 <p className="flex items-center gap-2 text-gray-700 text-sm">Price: 
-                  <p className="text-green-600 font-bold  ">
+                  <span className="text-green-600 font-bold  ">
                    ₹{price || "0.00"}
-                </p>
+                </span>
                 </p>
 
                   <span className="text-sm text-gray-700">

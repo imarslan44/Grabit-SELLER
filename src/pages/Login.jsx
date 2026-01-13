@@ -43,7 +43,7 @@ const Login = () => {
       console.log("Seller login response:", data);
       if(data.token){
         localStorage.setItem("sellerToken", data.token);
-        alert("Login successful!");
+        
         dispatch(SET_TOKEN(data.token));
         navigate("/add-product");
         // Optionally, redirect to dashboard page

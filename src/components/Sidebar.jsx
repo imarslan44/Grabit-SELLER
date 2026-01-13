@@ -27,26 +27,28 @@ const Sidebar = () => {
       Pages
     </h2>
     <ul className="space-y-3">
-      <NavLink 
-        to="/" 
-        className={({isActive}) => 
-          `block px-4 py-2 rounded-md transition ${
-            isActive ? "bg-lime-500 text-white font-semibold" : "text-gray-700 hover:bg-gray-100"
-          }`
-        } 
-        end
-      >
-        Insights
-      </NavLink>
+     
       <NavLink 
         to="/orders" 
         className={({isActive}) => 
           `block px-4 py-2 rounded-md transition ${
             isActive ? "bg-lime-500 text-white font-semibold" : "text-gray-700 hover:bg-gray-100"
           }`
-        }
-      >
+        }>
+          
         Orders
+      </NavLink>
+       <NavLink 
+        to="/products" 
+        className={({isActive}) => 
+          `block px-4 py-2 rounded-md transition ${
+            isActive ? "bg-lime-500 text-white font-semibold" : "text-gray-700 hover:bg-gray-100"
+          }`
+        } 
+        end
+        
+      >
+        Our_Products
       </NavLink>
       <NavLink 
         to="/add-product" 
@@ -57,6 +59,17 @@ const Sidebar = () => {
         }
       >
         Listing
+      </NavLink>
+       <NavLink 
+        to="/insights" 
+        className={({isActive}) => 
+          `block px-4 py-2 rounded-md transition ${
+            isActive ? "bg-lime-500 text-white font-semibold" : "text-gray-700 hover:bg-gray-100"
+          }`
+        } 
+        
+      >
+        Insights
       </NavLink>
     </ul>
   </nav>

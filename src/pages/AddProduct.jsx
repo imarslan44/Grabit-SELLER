@@ -15,6 +15,7 @@ import Step5 from '../components/listingComponents/GuideComponents/Step5';
 
 const Add = ({token}) => {
 
+  const [Loading, setLoading] = useState(false)
   // state to tell wich step to move
   const [step, setStep] = useState(1)
   const [productImages, setProductImages] = useState([]);
@@ -53,6 +54,7 @@ const handleSubmit = async (e) => {
   prepareFormData(formData);
 
   try {
+    setLoading(true)
     const response = await fetch('http://localhost:5000/api/product/add', {
       method: 'POST',
       headers: {  
@@ -64,6 +66,11 @@ const handleSubmit = async (e) => {
     console.log("response",response)
     const data = await response.json(); 
     console.log("Response from server:", data);
+    if(data.success) {
+      setLoading(false);
+      return alert("Product uploaded successfully")
+    }
+    
   } catch (error) {
     console.error("Error submitting form:", error);
   }
@@ -155,7 +162,8 @@ const [deliveryDetails, setDeliveryDetails] = useState({
   }
 
  
-
+if(Loading) return (<h1>Uploading...</h1>
+)
   return (
   <div className='Container flex  items-around bg-gray-100 w-[80%] h-screen  p-1 gap-2'>
 

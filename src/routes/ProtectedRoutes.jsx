@@ -8,25 +8,26 @@ import {Outlet}  from "react-router-dom";
 import { BACKEND_URL } from "../config/env";
 
 
-const ProtectedRoutes = () => {
- const [isAuthorized, setisAuthorized] = useState("dd");
+; const ProtectedRoutes = () => { const [isAuthorized, setIsAuthorized] = useState(null); // null = unknown yet 
+const authorize = async () => { 
+    try { const res = await fetch(`${BACKEND_URL}/api/seller/authorize/token`, { credentials: "include", });
 
+     const data = await res.json();
 
-    const authorize = async ()=>{
-        const url = `${BACKEND_URL}/api/seller/authorize/token`
-        const res = await fetch(url, {credentials : "include",});
-        const data = await res.json();
-        setisAuthorized(data.success)
-    }
-    useEffect(() => {
-         authorize()
-    }, [])
+      setIsAuthorized(data.success); // true or false 
+
+      } catch (err) { 
+        console.error("Authorization failed", err);
+         setIsAuthorized(false); } }; useEffect(() => { authorize(); }, []);
+          if (isAuthorized === null) { // still loading, don’t redirect yet
+     return <div>Loading...</div>;
     
-   
+    } 
+ 
+ return isAuthorized ? <Outlet /> : <Navigate to="/login" />; 
 
-    return isAuthorized ? <Outlet /> : <Navigate to="/login" />;
-};
+}; 
 
-export default ProtectedRoutes;
+     export default ProtectedRoutes;
 
 
