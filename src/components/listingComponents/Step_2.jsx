@@ -99,7 +99,7 @@ const removeVarient = (index)=>{
         <input
            type="number"
            name="price"
-           required={variant?.sizes?.length ===0}
+           required={variant?.sizes?.length === 0}
            value={variant.price || ""}
            onChange={(e) => handleColorChange(vIndex, "price", e.target.value)}
            placeholder="Price in Rs."
@@ -129,11 +129,12 @@ const removeVarient = (index)=>{
 
 <div className="flex gap-4 mb-3">
   {[...Array(4)].map((_, i) => {
-   const requiredImage = i === 0;
+   const requiredImage = variants?.images?.[0] === "" && i === 0;
+   console.log(requiredImage)
 
    return (<label
       key={i}
-      className="w-24 h-24 border-2 border-dashed rounded-md flex items-center justify-center cursor-pointer bg-gray-50 hover:border-indigo-500 transition relative"
+      className="w-24 h-24 border-2 border-dashed border-gray-400 rounded-md flex items-center justify-center cursor-pointer bg-gray-50 hover:border-indigo-500 transition relative"
     >
       {variant.images[i] ? (
         
@@ -148,8 +149,8 @@ const removeVarient = (index)=>{
       <input
         type="file"
         accept="image/*"
-        className="w-20 opacity-0 absolute"
-        required={requiredImage}
+        className="w-20   opacity-0 absolute"
+        required={ requiredImage}
         onChange={(e) =>
           handleImageUpload(vIndex, i, e.target.files[0])
         }

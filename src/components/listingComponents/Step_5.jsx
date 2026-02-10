@@ -25,7 +25,7 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails, handleSubmit, handleBack 
 
   return (
     <form onSubmit={handleSubmit} className="p-6 bg-gray-50 rounded-md ">
-      <h2 className="text-2xl font-bold mb-4">Step 5: Delivery Details</h2>
+      <h2 className="text-2xl font-bold mb-4">Delivery Details</h2>
 
       {/* COD */}
       <div className="mb-4 flex items-center  justify-start gap-2 bg-gray-200 rounded-sm ">
@@ -86,6 +86,11 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails, handleSubmit, handleBack 
           </button>
         </div>
         <ul className="space-y-1 max-h-30  overflow-auto">
+          {
+            deliveryDetails.deliveryAreas.length === 0 &&  (
+              <p>No pincode added Yet!</p>
+            )
+          }
 
           {deliveryDetails.deliveryAreas.map((pincode, index) => (
             <li
@@ -102,6 +107,8 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails, handleSubmit, handleBack 
               </button>
             </li>
           ))}
+
+        
         </ul>
       </div>
         <div className="flex py-1  gap-2">

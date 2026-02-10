@@ -9,7 +9,7 @@ const Step_4 = ({ metadetails, setMetaDetails, handleNext, handleBack}) => {
 
   return (
     <form onSubmit={handleNext} className="p-6 bg-gray-50 rounded-md ">
-      <h2 className="text-2xl font-bold mb-4">Step 4: Meta Details</h2>
+      <h2 className="text-2xl font-bold mb-4"> Meta Details</h2>
 
       {/* Brand */}
       <div className="mb-4">

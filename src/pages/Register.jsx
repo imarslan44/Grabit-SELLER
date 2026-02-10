@@ -75,9 +75,9 @@ const Register = () => {
 
 
   return (
-    <div className="w-full flex flex-col items-center justify-center mt-10">
+    <div className="w-full  flex flex-col items-center justify-center  bg-white  p-3">
 
-      <form onSubmit={handleSubmit} className={`register-form ${StepCount == 2 ? 'max' : 'min'} flex flex-col bg-white p-8 w-1/3 space-y-4 border border-gray-300 rounded-md shadow-md`}>
+      <form onSubmit={handleSubmit} className={`register-form ${StepCount == 2 ? 'max' : 'min'} flex flex-col bg-white p-4 md:p-8 max-sm:w-full space-y-4 border border-gray-200 rounded-xs shadow-sm`}>
         <h1 className="text-center uppercase font-semibold text-lg text-gray-700 pb-4">Register as Seller</h1>
 
         { StepCount === 1 &&  <Step_1 Seller={Seller} setSeller={setSeller}/> }
@@ -95,11 +95,11 @@ const Register = () => {
           { StepCount > 1 && <button onClick={prevStep} className="bg-gray-200 rounded p-2 flex-1 text-gray-800 cursor-pointer">Previous</button> }
 
           {StepCount === 3 ? (
-  <button type="submit" className="bg-gray-800 rounded p-2 text-white flex-1 cursor-pointer">
+  <button type="submit" className="bg-lime-500 rounded p-2 md:w-80 text-white flex-1 cursor-pointer">
     Submit
   </button>
 ) : (
-  <button type="button" onClick={nextStep} className="bg-gray-800 rounded p-2 text-white flex-1 cursor-pointer">
+  <button type="button" onClick={nextStep} className="bg-gray-800 rounded p-2 text-white w-60  cursor-pointer">
     Next
   </button>
 )}

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { BACKEND_URL } from "../config/env.js";
+import Loader from "../components/Loader.jsx";
 
 const Orders = () => {
 
   const [activeButton, setActiveButton] = useState("PLACED");
   const [orders, setOrders] = useState([]);
+  const [Loading, setLoading] = useState(true)
 
   const navButtonStyles = "font-medium uppercase cursor-pointer px-3 py-1 rounded";
   const activeButtonStyles = "bg-lime-500 text-white";
@@ -17,7 +19,7 @@ const Orders = () => {
       });
 
       const data = await response.json();
-      console.log(data)
+       setLoading(false)
       setOrders(data.orderData|| []);
     } catch (err) {
       console.error("Error fetching orders:", err);
@@ -47,6 +49,7 @@ const Orders = () => {
     }
   };
 
+
   useEffect(() => {
     fetchOrders();
   }, []);
@@ -56,10 +59,11 @@ const Orders = () => {
     (order) => order.status?.toUpperCase() === activeButton
   );
 
+  if(Loading) return (<Loader/>)
   return (
-    <div className="w-[82vw] relative">
+    <div className="w-full relative">
       {/* Header + Nav */}
-      <header className="flex gap-5 p-3 w-full bg-gray-900 text-white absolute top-0 z-100">
+      <header className="flex gap-5 p-3 w-full rounded overflow-x-auto bg-gray-900 text-white absolute top-0 z-100">
         <h1 className="text-xl font-semibold">Orders</h1>
         <nav className="flex px-3 gap-3">
           {["PLACED", "SHIPPED", "DELIVERED", "CANCELLED", "OUT_FOR_DELIVERY", "RETURNED"].map((status) => (

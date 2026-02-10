@@ -12,7 +12,7 @@ import Step2 from '../components/listingComponents/GuideComponents/step2';
 import Step3 from '../components/listingComponents/GuideComponents/Step3';
 import Step4 from '../components/listingComponents/GuideComponents/step4';
 import Step5 from '../components/listingComponents/GuideComponents/Step5';
-
+import Loader from "../components/Loader.jsx"
 const Add = ({token}) => {
 
   const [Loading, setLoading] = useState(false)
@@ -52,6 +52,8 @@ const handleSubmit = async (e) => {
   e.preventDefault();
   const formData = new FormData();
   prepareFormData(formData);
+
+  if(deliveryDetails.deliveryAreas.length === 0 ) return alert("please enter the pincode of the areas you can reach then click the add button to Add")
 
   try {
     setLoading(true)
@@ -137,14 +139,16 @@ const [deliveryDetails, setDeliveryDetails] = useState({
   
 
   //function to move on next step
-  const handleNext = ()=>{
+  const handleNext = (e)=>{
+    e.preventDefault();
   if(step < 5){
       setStep(step+1)
       
     }
   }
 
-  const handleBack = ()=>{
+  const handleBack = (e)=>{
+    e.preventDefault()
     if(step > 1){
       setStep(step-1)
       
@@ -162,10 +166,9 @@ const [deliveryDetails, setDeliveryDetails] = useState({
   }
 
  
-if(Loading) return (<h1>Uploading...</h1>
-)
+if(Loading) return (<Loader title={"Uploading product"}/>)
   return (
-  <div className='Container flex  items-around bg-gray-100 w-[80%] h-screen  p-1 gap-2'>
+  <div className='Container flex  items-around bg-gray-100  w-full  h-screen  md:p-1 md:gap-2'>
 
 
 {/* product listing goes here */}
@@ -187,7 +190,7 @@ activeCount={activeCount} setActiveCount={setActiveCount}/>}
 </div>
 
 {/* guide component on right side */}
-  <div className="w-full flex-1 pb-2 ">
+  <div className="w-full flex-1 pb-2 max-md:hidden">
        
     {step === 1 && <Step1/>}
     {step === 2 && <Step2/>}
