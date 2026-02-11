@@ -107,7 +107,7 @@ if(Loading) return (<div className='w-full bg-violet-50 h-screen'>
                 <li key={item._id} className="p-2 bg-white shadow-sm   rounded-sm flex gap-3 min-h-60 max-h-70   text-gray-800 overflow-hidden relative w-full">
 
                     <button className="absolute top-2 right-2 cursor-pointer" onClick={()=>{
-                        console.log(item._id)
+                       
                         setProductId(item._id)
                         setpopUp(!popUp);
 
@@ -144,10 +144,14 @@ if(Loading) return (<div className='w-full bg-violet-50 h-screen'>
                         {/* stocks */}
                        <p className="text-md">
                         STOCK QTY: <span className="text-lime-500">
+                       {
+                        console.log(item.variants[0].color, item.variants[0].stock)
+                       }
+                       { 
+                        item.variants .flatMap(v => (v?.sizes?.length > 0 ? v.sizes.map(s => s?.stock || 0) : [v?.stock || 0])) .reduce((a, b) => a + b, 0)
+                        
+                        }
 
-                       {item.variants
-                        .flatMap(v => v?.sizes ? v.sizes.map(s => s?.stock || 0) : [v?.stocks || 0])
-                        .reduce((a, b) => a + b, 0)}
                        </span>
                        </p>
                     </div>

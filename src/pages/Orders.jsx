@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { BACKEND_URL } from "../config/env.js";
 import Loader from "../components/Loader.jsx";
-
+import Notification from "../components/Notification.jsx"
 const Orders = () => {
 
   const [activeButton, setActiveButton] = useState("PLACED");
   const [orders, setOrders] = useState([]);
   const [Loading, setLoading] = useState(true)
+
+  // states to manage notification on events
+  const [showNotification, setShowNotification]= useState(false)
+  const [notification, setNotification] = useState({
+    type:"",
+    message: "",
+    duration: 0,
+  })
 
   const navButtonStyles = "font-medium uppercase cursor-pointer px-3 py-1 rounded";
   const activeButtonStyles = "bg-lime-500 text-white";
@@ -43,6 +51,10 @@ const Orders = () => {
             order._id === orderId ? { ...order, status: newStatus } : order
           )
         );
+        setShowNotification(true);
+        setNotification({type: "Success", message:`Order ${newStatus} successfully.`, duration: 3000})
+
+        setTimeout(()=> {setShowNotification(false)}, 2500)
       }
     } catch (err) {
       console.error("Error updating order:", err);
@@ -62,8 +74,9 @@ const Orders = () => {
   if(Loading) return (<Loader/>)
   return (
     <div className="w-full relative">
+      {showNotification && <Notification type={notification.type} message={notification.message} duration={notification.duration}/> }
       {/* Header + Nav */}
-      <header className="flex gap-5 p-3 w-full rounded overflow-x-auto bg-gray-900 text-white absolute top-0 z-100">
+      <header className="flex gap-5 p-3 w-full rounded overflow-x-auto bg-gray-900 text-white absolute top-0 z-10">
         <h1 className="text-xl font-semibold">Orders</h1>
         <nav className="flex px-3 gap-3">
           {["PLACED", "SHIPPED", "DELIVERED", "CANCELLED", "OUT_FOR_DELIVERY", "RETURNED"].map((status) => (
@@ -104,7 +117,7 @@ const Orders = () => {
 
               {/* Product Info */}
               <div className="p-2 col-start-3 col-span-full row-span-2 mt-4">
-                <h2 className="font-semibold text-lg">
+                <h2 className="font text-lg leading-5 py-2 line-clamp-2 ">
                   {order.product?.title || "Product Title"}
                 </h2>
 
@@ -141,23 +154,26 @@ const Orders = () => {
               </div>
 
                 {/* Status + Update */}
-                <div className="mt-3 flex justify-between items-center col-start-3 col-span-full p-3">
+                <div className="mt-7 flex justify-between items-center col-start-3 col-span-full p-3">
                 <p className="flex items-center gap-2 text-gray-700 text-sm">Price: 
                   <span className="text-green-600 font-bold  ">
                    ₹{price || "0.00"}
                 </span>
                 </p>
 
-                  <span className="text-sm text-gray-700">
-                    Status: {order.status}
+                  <span className={` text-gray-100 bg-blue-500  rounded-xs p-1 px-3 text-xs absolute top-1 right-1  `}>
+                     {order.status}
                   </span>
                   
+                 <div className="   text-gray-800 p-1   text-xs ">STATUS: 
                   <select
+                 id="status"
                     value={order.status}
                     onChange={(e) =>
                       updateOrderStatus(order._id, e.target.value)
                     }
-                    className="border border-gray-400 text-gray-500 rounded  p-1 text-xs absolute top-1 right-2"
+                     className="   text-gray-800 p-1 border-b outine-none  text-xs "
+                    
                   >
                     <option value="PLACED">Placed</option>
                     <option value="SHIPPED">Shipped</option>
@@ -166,6 +182,7 @@ const Orders = () => {
                     <option value="CANCELLED">Cancelled</option>
                     <option value="RETURNED">Returned</option>
                   </select>
+                  </div>
                 </div>
 
                 {/* ADDRESS DETAILS */}

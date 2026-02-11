@@ -4,21 +4,19 @@ const Step5 = () => {
   return (
    <div className="w-full h-screen flex-1 bg-white p-6">
   {/* Title */}
-  <h1 className="w-full text-xl font-light  text-gray-900 text-center uppercase mb-8 tracking-wider">
-    Upload Product in 5 Steps
+  <h1 className="w-full text-xl font-semibold   text-gray-700  uppercase mb-8 tracking-tight">
+    Upload Product in Five Steps.
   </h1>
 
   {/* Step Heading */}
-  <h2 className="text-xl font-semibold text-gray-800 text-center mt-6">
-    STEP_5
-  </h2>
+  
   <h3 className=" font-medium text-gray-500 uppercase mb-4">
-    Basic_Info
+   STEP_5: Delivery & Area
   </h3>
 
   {/* Content List */}
-  <ul className="space-y-3 text-gray-700 leading-relaxed list-disc px-4 tracking-wider">
-    <li>Pleas Tick the if you want cash delivery for this product.
+  <ul className="space-y-3 text-gray-700 leading-5.7 list-disc px-4 tracking-tight">
+    <li>Pleas Tick the if you want cash on delivery available for this product.
     </li>
     <li>
       Return and Shipment should be less than  or equal to 7 days
