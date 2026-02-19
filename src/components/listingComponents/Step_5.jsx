@@ -24,7 +24,7 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails, handleSubmit, handleBack 
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-6 bg-gray-50 rounded-md ">
+    <form onSubmit={handleSubmit} className="p-6 bg-gray-50 rounded-md h-screen">
       <h2 className="text-2xl font-bold mb-4">Delivery Details</h2>
 
       {/* COD */}
@@ -116,7 +116,7 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails, handleSubmit, handleBack 
         </button>
           
         <button type="submit"  className="w-full  p-2 text-md bg-black rounded-sm text-white mt-2 mb-2 flex justify-center items-center cursor-pointer">
-              Submit <ion-icon name="arrow-forward-outline"></ion-icon>
+              Publish <ion-icon name="arrow-up-outline"></ion-icon>
         </button> 
       </div>
     </form>

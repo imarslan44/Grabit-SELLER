@@ -69,13 +69,13 @@ const removeVarient = (index)=>{
 
   return (
 
-    <form onSubmit={handleNext} className="p-6 bg-gray-50 h-screen overflow-auto pb-20">
+    <form onSubmit={handleNext} className="p-3 md:p-6 w-[90dvw] md:w-full h-screen bg-gray-50   overflow-auto pb-20">
 
       <h2 className="text-2xl font-bold mb-4">Variants</h2>
 
 {/* map on each varient and show inputs fields for each */}
       {variants.map((variant, vIndex) => (
-        <div key={vIndex} className="border rounded-lg p-4 pt-8 pr-10 mb-6 bg-white relative">
+        <div key={vIndex} className="border w-full rounded-lg p-4 pt-8 md:pr-10 mb-6 bg-white relative">
 
         { vIndex > 0 && <button onClick={()=>removeVarient(vIndex)} 
         className="absolute right-2 top-2  cursor-pointer"> 
@@ -93,7 +93,7 @@ const removeVarient = (index)=>{
             
             onChange={(e) => handleColorChange(vIndex, "color", e.target.value)}
             placeholder="Color name."
-            className="mb-3 w-1/4 border px-3 py-2 rounded"
+            className="mb-3 w-1/4 border px-3 py-2 rounded max-sm:flex-1"
              required
           />
         <input
@@ -103,7 +103,7 @@ const removeVarient = (index)=>{
            value={variant.price || ""}
            onChange={(e) => handleColorChange(vIndex, "price", e.target.value)}
            placeholder="Price in Rs."
-           className={`w-1/4 mb-3 border px-3 py-2 rounded 
+           className={`w-1/4 mb-3 border px-3 py-2 rounded  max-sm:flex-1
               ${variant.sizes.length > 0 ? "opacity-50 cursor-not-allowed" : ""}`}
   disabled={variant.sizes.length > 0}
 />
@@ -115,7 +115,7 @@ const removeVarient = (index)=>{
   value={variant.stock || ""}
   onChange={(e) => handleColorChange(vIndex, "stock", e.target.value)}
   placeholder="Stock qty."
-  className={`w-1/4 mb-3 border px-3 py-2 rounded 
+  className={`w-1/4 mb-3 border px-3 py-2 rounded max-sm:flex-1
               ${variant.sizes.length > 0 ? "opacity-50 cursor-not-allowed" : ""}`}
   disabled={variant.sizes.length > 0}
 />
@@ -132,7 +132,8 @@ const removeVarient = (index)=>{
    const requiredImage = variants?.images?.[0] === "" && i === 0;
    console.log(requiredImage)
 
-   return (<label
+   return (
+   <label
       key={i}
       className="w-24 h-24 border-2 border-dashed border-gray-400 rounded-md flex items-center justify-center cursor-pointer bg-gray-50 hover:border-indigo-500 transition relative"
     >
@@ -226,7 +227,7 @@ const removeVarient = (index)=>{
         + Add Another Color Variant
       </button>
 
-      <div className="flex py-1  gap-2 absolute bottom-0 w-full left-0 bg-white/80 backdrop-blur-sm pb-4 ">
+      <div className="flex py-1 px-2 gap-2 absolute bottom-0 w-full left-0 bg-white/80 backdrop-blur-sm pb-4 ">
         <button type="button" onClick={handleBack} className="w-full  p-2 text-md  rounded-sm text-black bg-white font mt-2 mb-2 flex justify-center items-center cursor-pointer shadow-xs border border-white hover:border-gray-200"><ion-icon name="arrow-back-outline"></ion-icon> Back
         </button>
           

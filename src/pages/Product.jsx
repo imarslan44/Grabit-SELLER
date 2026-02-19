@@ -104,59 +104,118 @@ if(Loading) return (<div className='w-full bg-violet-50 h-screen'>
            {
             producList.length > 0  && producList.map((item, index)=>(
 
-                <li key={item._id} className="p-2 bg-white shadow-sm   rounded-sm flex gap-3 min-h-60 max-h-70   text-gray-800 overflow-hidden relative w-full">
+               <li
+  key={item._id}
+  className="bg-white w-full xl:w-[48%] rounded-xl shadow-sm hover:shadow-md transition p-4 flex flex-col sm:flex-row gap-4 relative"
+>
 
-                    <button className="absolute top-2 right-2 cursor-pointer" onClick={()=>{
-                       
-                        setProductId(item._id)
-                        setpopUp(!popUp);
+  {/* 3 DOT MENU */}
+  <div className="absolute top-3 right-3">
+    <button
+      onClick={() => {
+        setProductId(item._id);
+        setpopUp(!popUp);
+      }}
+      className="text-gray-500 hover:text-gray-800"
+    >
+      <ion-icon name="ellipsis-vertical"></ion-icon>
+    </button>
 
-                        }}>
-                        <ion-icon  name="ellipsis-vertical"></ion-icon>
-                    </button>
-                    
-                    {/*update popUp  */}
-                 { popUp &&  <div  className={` bg-white flex flex-col  w-30 h-20  rounded-xs shadow absolute z-100 pt-6 top-3 right-6 ${ProductId === item._id ? "" : "hidden"}`}>
+    {popUp && ProductId === item._id && (
+      <div className="absolute right-0 mt-2 w-36 bg-white rounded-lg shadow-lg border text-sm z-50">
+        <button
+          onClick={() => {
+            setOpenDeleteModal(true);
+            setpopUp(false);
+          }}
+          className="w-full text-left px-4 py-2 hover:bg-red-50 text-red-600"
+        >
+          Delete
+        </button>
 
-                    <button onClick={()=>setpopUp(false)}
-                        className="text-lg absolute top-1 right-2 cursor-pointer">
-                        <ion-icon name="close-outline" ></ion-icon>
-                    </button>
-                        <button onClick={()=>{setOpenDeleteModal(true)
-                            setpopUp(false)}
-                        }
-                        className="font-semibold  w-full h-1/2 bg-white hover:bg-red-300 text-start px-2 border-b border-gray-300 cursor-pointer" >DELETE</button>
-                        {/* Disabled */}
-                        <button className="font-semibold  w-full h-1/2 bg-white text-start px-2 text-gray-500" >UPDATE</button>
+        <button
+          className="w-full text-left px-4 py-2 hover:bg-gray-50"
+        >
+          Update
+        </button>
+      </div>
+    )}
+  </div>
 
-                    </div> }
+  {/* IMAGE */}
+  <div className="w-full sm:w-32 h-40 sm:h-32 rounded-lg overflow-hidden flex-shrink-0">
+    <img
+      src={item.variants[0].images[0]}
+      alt="product"
+      className="w-full h-full object-cover"
+    />
+  </div>
 
-                    {/* image section */}
-                     <div className="w-32 h-30 overflow-hidden rounded-sm">
-                        <img src={item.variants[0].images[0]} alt="item image" className="w-full h-full object-center object-cover" />
-                     </div>
-                    <div className="w-full flex-1">
-                        <h3 className="font-bold text-xl  ">{item.title}</h3>
-                        <p className="font-extralight text-xs pb-1 w-8/10 h-16 tracking-wide">{item.description}</p>
-                    <div className="flex absolute w-full bottom-0 py-3 bg-white  gap-10 left-3">
-                         {/* Price */}
-                     <p className=" text-md ">PRICE: <span className="text-lime-600 ">₹{item.variants[0]?.sizes[0]?.price || item.variants[0]?.price || 0}</span></p>
-                        {/* stocks */}
-                       <p className="text-md">
-                        STOCK QTY: <span className="text-lime-500">
-                       {
-                        console.log(item.variants[0].color, item.variants[0].stock)
-                       }
-                       { 
-                        item.variants .flatMap(v => (v?.sizes?.length > 0 ? v.sizes.map(s => s?.stock || 0) : [v?.stock || 0])) .reduce((a, b) => a + b, 0)
-                        
-                        }
+  {/* CONTENT */}
+  <div className="flex flex-col justify-between flex-1">
 
-                       </span>
-                       </p>
-                    </div>
-                    </div>
-                </li>
+    {/* Title + Description */}
+    <div>
+      <h3 className="text-lg font-semibold text-gray-800">
+        {item.title}
+      </h3>
+
+      <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+        {item.description}
+      </p>
+    </div>
+
+    {/* Bottom Stats */}
+    <div className="flex flex-wrap items-center justify-between mt-4 gap-3">
+
+      {/* PRICE */}
+      <div className="text-sm">
+        <span className="text-gray-500">Price</span>
+        <p className="text-green-600 font-semibold text-lg">
+          ₹
+          {item.variants[0]?.sizes?.[0]?.price ||
+            item.variants[0]?.price ||
+            0}
+        </p>
+      </div>
+
+      {/* STOCK */}
+      <div className="text-sm">
+        <span className="text-gray-500">Stock</span>
+        <p className="font-semibold text-gray-800">
+          {item.variants
+            .flatMap((v) =>
+              v?.sizes?.length > 0
+                ? v.sizes.map((s) => s?.stock || 0)
+                : [v?.stock || 0]
+            )
+            .reduce((a, b) => a + b, 0)}
+        </p>
+      </div>
+
+      {/* STATUS BADGE */}
+      <div>
+        {item.variants
+          .flatMap((v) =>
+            v?.sizes?.length > 0
+              ? v.sizes.map((s) => s?.stock || 0)
+              : [v?.stock || 0]
+          )
+          .reduce((a, b) => a + b, 0) > 0 ? (
+          <span className="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full">
+            In Stock
+          </span>
+        ) : (
+          <span className="bg-red-100 text-red-600 text-xs px-3 py-1 rounded-full">
+            Out of Stock
+          </span>
+        )}
+      </div>
+
+    </div>
+  </div>
+</li>
+
 
             )) 
            }

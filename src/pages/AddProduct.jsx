@@ -173,8 +173,7 @@ if(Loading) return (<Loader title={"Uploading product"}/>)
 
 {/* product listing goes here */}
 
-
-<div  className="w-full flex-2  flex flex-col bg-white rounded-md  justify-baseline-center items-baseline-center relative">
+<div  className="lg:w-3/5 flex-1 flex flex-col bg-amber-100 rounded-md  justify-baseline-center items-baseline-center relative h-screen overflow-hidden">
 
 { step === 1 && <Step_1 handleNext={handleNext} basicInfo={basicInfo}  setBasicInfo={setBasicInfo}/> }
 

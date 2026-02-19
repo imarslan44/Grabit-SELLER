@@ -1,18 +1,14 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { SET_TOKEN } from '../context/seller.slice.js';
-import {  NavLink, useNavigate } from 'react-router-dom';
-import { BACKEND_URL } from '../config/env.js';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { SET_TOKEN } from "../context/seller.slice.js";
+import { NavLink, useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../config/env.js";
 
 const Login = () => {
-
-  const [current, setCurrent] = useState("login");
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
-  
-
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -22,68 +18,97 @@ const Login = () => {
       ...credentials,
       [e.target.name]: e.target.value,
     });
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //login logic here
-    if(!credentials.email || !credentials.password){
+    if (!credentials.email || !credentials.password) {
       alert("Please fill all the fields!");
       return;
     }
-    try{
-     const url = `${BACKEND_URL}/api/seller/sign-in`
-      const res = await fetch(url, {
+
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/seller/sign-in`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify(credentials),
-      })
+      });
+
       const data = await res.json();
 
-      console.log("Seller login response:", data);
-      if(data.token){
+      if (data.token) {
         localStorage.setItem("sellerToken", data.token);
-        
         dispatch(SET_TOKEN(data.token));
         navigate("/");
-        // Optionally, redirect to dashboard page
-      }else{
-        alert(data.message || "Login failed. Please try again.");
+      } else {
+        alert(data.message || "Login failed.");
       }
-  } catch (error) {
-      console.error("Error during login:", error);
-      alert("An error occurred. Please try again later.");
+    } catch (error) {
+      alert("Something went wrong.");
     }
-  }
+  };
 
- 
-   return (
-    //login page content
+  return (
+    <div className="min-h-screen w-screen flex">
 
-   
- current === "login" &&   <div className="flex w-full  justify-end px-10 md:px-20 items-center h-screen bg-white">
-      <form onSubmit={handleSubmit} className="p-6  bg-gray-50 rounded-xs shadow-sm flex flex-col gap-4 border-gray-100 border   ">
- 
-        <h1 className="text-2xl text-gray-700 font-bold  text-center">Login</h1>
-        <input type="email" name="email" placeholder='Username' 
-        className=' rounded-xs border border-gray-600 p-2 text-xl  '
-        onChange={handleChange}/>
-        <input type="password" name="password" placeholder='Password' className=' rounded-xs border border-gray-600 p-2 text-xl'
-        onChange={handleChange}/>
-        
-        <p className="text-center w-full text-gray-500"><NavLink  to={"/register"} onClick={()=> setCurrent("register")}
-        className="text-gray-600 font-serif underline">Register your bussiness!</NavLink></p>
-        <button type="submit" className=' rounded-xs border-orange-400 p-2 text-white bg-gray-800' >Login</button>
-      </form>
-      
+      {/* LEFT BRAND PANEL */}
+      <div className="hidden md:flex w-1/2 bg-gradient-to-br from-lime-500 via-lime-700 to-green-700 text-white p-16 flex-col justify-center">
+        <h1 className="text-4xl font-bold mb-6">Sell Smarter with Grabit</h1>
+        <p className="text-lg text-gray-200">
+          Manage products, track orders and grow your business —
+          all in one powerful dashboard.
+        </p>
+      </div>
+
+      {/* RIGHT LOGIN CARD */}
+      <div className="w-full md:w-1/2 flex items-center justify-center bg-gray-50">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white w-[90%] max-w-md p-10 rounded-2xl shadow-xl"
+        >
+          <h2 className="text-2xl font-semibold mb-8 text-center">
+            Seller Login
+          </h2>
+
+          <div className="space-y-4">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email address"
+              onChange={handleChange}
+              className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-lime-600 outline-none"
+            />
+
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              onChange={handleChange}
+              className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-lime-500 outline-none"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full mt-6 bg-lime-600 text-white py-3 rounded-lg font-medium hover:bg-green-500 transition"
+          >
+            Login
+          </button>
+
+          <p className="text-sm text-gray-500 text-center mt-6">
+            Don’t have a seller account?{" "}
+            <NavLink
+              to="/register"
+              className="text-green-600 font-medium hover:underline"
+            >
+              Register now
+            </NavLink>
+          </p>
+        </form>
+      </div>
     </div>
-    
-   
-  ) 
-  
-}
+  );
+};
 
-export default Login
+export default Login;

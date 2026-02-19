@@ -14,16 +14,16 @@ const App = () => {
   
   return (
     <section className="w-[100vw] h-[100vh]  flex  ">
-    <Sidebar/>
+   
     <Routes>
       
       {/* protect this with protected route */}
 
     <Route element={<ProtectedRoutes/>}>
-          <Route path="/" element={<Product/>}/>
-          <Route path="/orders" element={<Orders/>}/>
-          <Route path="/add-product" element={<Add/>}/>
-          <Route path="/insights" element={<h1 className="text-2xl font-bold p-8"><Loader/></h1>}/>
+          <Route path="/" element={<><Sidebar/><Product/></>}/>
+          <Route path="/orders" element={<><Sidebar/><Orders/></>}/>
+          <Route path="/add-product" element={<><Sidebar/><Add/></>}/>
+          <Route path="/insights" element={<><Sidebar/><h1 className="text-2xl font-bold p-8"><Loader/></h1></>}/>
     </Route>
       <Route path="/login" element={<Login/>}></Route>
       <Route path="/register" element={<Register/>}/>  
