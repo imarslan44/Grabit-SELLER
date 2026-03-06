@@ -40,7 +40,7 @@ const Login = () => {
       if (data.token) {
         localStorage.setItem("sellerToken", data.token);
         dispatch(SET_TOKEN(data.token));
-        navigate("/");
+        navigate("/orders");
       } else {
         alert(data.message || "Login failed.");
       }
@@ -53,16 +53,16 @@ const Login = () => {
     <div className="min-h-screen w-screen flex">
 
       {/* LEFT BRAND PANEL */}
-      <div className="hidden md:flex w-1/2 bg-gradient-to-br from-lime-500 via-lime-700 to-green-700 text-white p-16 flex-col justify-center">
-        <h1 className="text-4xl font-bold mb-6">Sell Smarter with Grabit</h1>
-        <p className="text-lg text-gray-200">
+      <div className="hidden md:flex w-1/2 bg-gradient-to-br from-amber-100 via-amber-50 to-amber-50/30 text-gray-700 p-16 flex-col justify-center">
+        <h1 className="text-6xl font-bold uppercase mb-6">Sell Smarter with Grabit</h1>
+        <p className="text-lg text-gray-700">
           Manage products, track orders and grow your business —
           all in one powerful dashboard.
         </p>
       </div>
 
       {/* RIGHT LOGIN CARD */}
-      <div className="w-full md:w-1/2 flex items-center justify-center bg-gray-50">
+      <div className="w-full md:w-1/2 flex items-center justify-center bg-amber-50/40">
         <form
           onSubmit={handleSubmit}
           className="bg-white w-[90%] max-w-md p-10 rounded-2xl shadow-xl"
@@ -77,7 +77,7 @@ const Login = () => {
               name="email"
               placeholder="Email address"
               onChange={handleChange}
-              className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-lime-600 outline-none"
+              className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-gray-600 outline-none"
             />
 
             <input
@@ -85,13 +85,14 @@ const Login = () => {
               name="password"
               placeholder="Password"
               onChange={handleChange}
-              className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-lime-500 outline-none"
+              className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-gray-500 outline-none"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full mt-6 bg-lime-600 text-white py-3 rounded-lg font-medium hover:bg-green-500 transition"
+            className="w-full mt-6 bg-gray-800 text-white py-3 rounded-lg font-medium cursor-pointer
+             hover:bg-gray-500 transition"
           >
             Login
           </button>
@@ -100,7 +101,7 @@ const Login = () => {
             Don’t have a seller account?{" "}
             <NavLink
               to="/register"
-              className="text-green-600 font-medium hover:underline"
+              className="text-gray-800 font-medium hover:underline"
             >
               Register now
             </NavLink>
