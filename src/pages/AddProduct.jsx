@@ -167,8 +167,9 @@ const [deliveryDetails, setDeliveryDetails] = useState({
 
  
 if(Loading) return (<Loader title={"Uploading product"}/>)
+  
   return (
-  <div className='Container flex  items-around bg-gray-100  w-full  h-screen  md:p-1 md:gap-2'>
+  <div className='Container flex  items-around bg-gray-50  w-full  h-screen  md:p-1 md:gap-2'>
 
 
 {/* product listing goes here */}

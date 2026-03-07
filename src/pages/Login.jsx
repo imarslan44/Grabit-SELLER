@@ -65,9 +65,9 @@ const Login = () => {
       <div className="w-full md:w-1/2 flex items-center justify-center bg-amber-50/40">
         <form
           onSubmit={handleSubmit}
-          className="bg-white w-[90%] max-w-md p-10 rounded-2xl shadow-xl"
+          className="bg-white w-[90%] max-w-md p-10 rounded-md shadow border border-gray-200"
         >
-          <h2 className="text-2xl font-semibold mb-8 text-center">
+          <h2 className="text-2xl text-gray-800 font-semibold mb-8 text-center">
             Seller Login
           </h2>
 
@@ -77,7 +77,7 @@ const Login = () => {
               name="email"
               placeholder="Email address"
               onChange={handleChange}
-              className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-gray-600 outline-none"
+              className="w-full border border-gray-300 px-4 py-3 rounded-sm focus:ring-2 focus:ring-gray-600 outline-none"
             />
 
             <input
@@ -85,14 +85,14 @@ const Login = () => {
               name="password"
               placeholder="Password"
               onChange={handleChange}
-              className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-gray-500 outline-none"
+              className="w-full border border-gray-300 px-4 py-3 rounded-sm focus:ring-2 focus:ring-gray-500 outline-none"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full mt-6 bg-gray-800 text-white py-3 rounded-lg font-medium cursor-pointer
-             hover:bg-gray-500 transition"
+            className="w-full mt-6 bg-gray-900 text-white py-3 rounded-sm font-medium cursor-pointer
+             hover:bg-gray-700 transition"
           >
             Login
           </button>

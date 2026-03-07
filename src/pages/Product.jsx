@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react'
 import { BACKEND_URL } from '../config/env'
 import Loader from '../components/Loader'
 import Notification from '../components/Notification'
-
+import { Link } from 'react-router-dom'
 
 const Product = () => {
 const [producList, setProductList] = useState([])
@@ -28,7 +28,7 @@ const fetchProducts = async ()=>{
     const data = await response.json();
     setLoading(false)
     setProductList(data.products || []);
-
+    
 }catch(error){
 
 console.log("error:", error)
@@ -49,7 +49,7 @@ const deleteProduct = async ()=>{
         
     const deletedProduct = await res.json();
 
-  console.log(deletedProduct.message)
+  
     if(!deleteProduct.success) {
         setOpenDeleteModal(false);
         setNotification({type: "Error", message : deletedProduct.message, duration: 2500});
@@ -67,17 +67,19 @@ useEffect(() => {
   fetchProducts();
 }, [])
 
-if(Loading) return (<div className='w-full bg-violet-50 h-screen'>
+
+
+if(Loading) return (<div className='w-full bg-gray-50 h-screen'>
     <Loader/> </div>)
 
   return (
-    <section className=' relative w-full min-h-screen  flex flex-col bg-violet-50'>
+    <section className=' relative w-full min-h-screen  flex flex-col bg-gray-50'>
         {/* Notification */}
     { showNotification && <Notification type={notification.type} message={notification.message} duration={notification.duration}/>}   
 
 {/* Delete Modal */}
 { openDeleteModal && 
-  <div className="w-full h-full bg-violet-100/50 backdrop-blur-sm absolute z-100 top-0 left-0 flex justify-center items-center ">
+  <div className="w-full h-full bg-gray-50 backdrop-blur-sm absolute z-100 top-0 left-0 flex justify-center items-center ">
 
    <div className="p-10 rounded bg-white shadow flex flex-col">
         <p className="p-2 text-center text-lg pb-10">Do you really want to delete this product. <br />
@@ -99,15 +101,25 @@ if(Loading) return (<div className='w-full bg-violet-50 h-screen'>
             {/* rendered successfully */}
         </header>
 
-        
+        {
+          // if 0 products in list
+          producList.length === 0 && (
+          <div className="m-auto p-5 shadow rounded ">
+            <h2 className="text-xl font-semibold py-2">No products uploaded yet.</h2>
+            <Link to="/add-product">
+            <button className="p-1 px-3 text-lg bg-blue-500 text-white shadow rounded cursor-pointer">Start Uploading</button>
+            </Link>
+          
+          </div>
+          )
+        }
         <ul className=" w-full  h-full flex-1 p-5  overflow-auto flex gap-3 flex-wrap ">
            {
             producList.length > 0  && producList.map((item, index)=>(
 
-               <li
-  key={item._id}
-  className="bg-white w-full xl:w-[48%] rounded-xl shadow-sm hover:shadow-md transition p-4 flex flex-col sm:flex-row gap-4 relative"
->
+  <li
+     key={item._id}
+     className="bg-white w-full xl:w-[48%] rounded-sm shadow border border-gray-200 hover:shadow-md transition p-4 flex flex-col sm:flex-row gap-4 relative">
 
   {/* 3 DOT MENU */}
   <div className="absolute top-3 right-3">

@@ -8,6 +8,7 @@ import Login from './pages/Login.jsx'
 import Orders from './pages/Orders.jsx'
 import Product from './pages/Product.jsx'
 import Loader from './components/Loader.jsx'
+import Insights from './pages/Insights.jsx'
 const App = () => {
   //log each component to catch error
   
@@ -23,7 +24,7 @@ const App = () => {
           <Route path="/" element={<><Sidebar/><Product/></>}/>
           <Route path="/orders" element={<><Sidebar/><Orders/></>}/>
           <Route path="/add-product" element={<><Sidebar/><Add/></>}/>
-          <Route path="/insights" element={<><Sidebar/><h1 className="text-2xl font-bold p-8"><Loader/></h1></>}/>
+          <Route path="/insights" element={<><Sidebar/><Insights/></>}/>
     </Route>
       <Route path="/login" element={<Login/>}></Route>
       <Route path="/register" element={<Register/>}/>  

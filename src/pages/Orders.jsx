@@ -278,7 +278,7 @@ const Orders = () => {
                         openAddress === order._id ? null : order._id
                       )
                     }
-                    className="text-xs text-blue-600 hover:underline"
+                    className="text-xs text-blue-600 hover:underline cursor-pointer"
                   >
                     {openAddress === order._id
                       ? "Hide Address"
