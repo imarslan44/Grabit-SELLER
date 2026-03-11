@@ -13,7 +13,7 @@ const authorize = async () => {
     try { const res = await fetch(`${BACKEND_URL}/api/seller/authorize/token`, { credentials: "include", });
 
      const data = await res.json();
-     console.log("authorization:", data)
+    
       setIsAuthorized(data.success); // true or false 
 
       } catch (err) { 
