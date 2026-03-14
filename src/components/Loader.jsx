@@ -2,10 +2,10 @@ import React from 'react'
 
 const Loader = ({title, titleClass}) => {
   return (
-    <div className="w-full h-full">
-    <div className="w-12 absolute top-1/2 left-1/2 -translate-1/2">
+    <div className="w-full h-full z-90">
+    <div className="w-12 absolute top-2/1 left-1/1 -translate-full">
      <h1 className={`text-center text-xl font-bold  w-full ${titleClass}`}>{title}</h1>
-   <div className="w-12   text-lime-500">
+   <div className="w-12   text-main">
     <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <circle cx="4" cy="12" r="0">
       <animate begin="0;spinner_z0Or.end" attributeName="r" calcMode="spline" dur="0.5s" keySplines=".36,.6,.31,1" values="0;3" fill="freeze"></animate>

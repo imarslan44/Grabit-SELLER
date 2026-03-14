@@ -7,11 +7,11 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_TOKEN } from '../context/seller.slice.js';
 import { Link } from 'react-router-dom';
-
+import { assets } from '../assets/assets.js';
 // Simple loading spinner component
 const Loading = () => (
   <div className="fixed inset-0 flex items-center justify-center bg-gray-50 bg-opacity-30 z-50">
-    <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-amber-500"></div>
+    <div className="animate-spin rounded-full h-16 w-16 border-t-4  border-main"></div>
   </div>
 );
 
@@ -65,7 +65,7 @@ const Register = () => {
         })
 
         const data = await res.json();
-        console.log("Seller registration response:", data);
+        
 
         if(data.success){
           localStorage.setItem("sellerToken", data.token);
@@ -91,10 +91,13 @@ const Register = () => {
 
 
   return (
-    <div className="w-full min-h-screen flex flex-col md:flex-row items-stretch justify-center bg-white">
+    <div className="w-full min-h-screen flex flex-col md:flex-row items-stretch justify-center bg-white p-5 md:p-10">
+       <div className="w-40 sm:w-60 h-20 sm:h-28 top-10 left-3  md:m-6 p-2 absolute">
+             <img src={assets.logo} alt="Logo" className="w-full h-full object-cover"/>
+          </div>
       {/* Left Side: Professional Text */}
-      <div className="hidden md:flex flex-col justify-center items-start bg-gradient-to-br from-amber-100 via-amber-50 to-amber-50/30 px-10 w-1/2 border-r border-gray-200">
-        <h2 className="text-3xl font-bold text-gray-800 mb-4">Welcome to Grabit Seller Portal</h2>
+      <div className="hidden md:flex flex-col justify-center items-start  px-10 w-1/2 border-r border-gray-200">
+        <h2 className="text-3xl font-bold text-gray-800 mb-4">Welcome to <span className='text-main font-extrabold '>BARKET</span> Seller Portal</h2>
         <ul className="space-y-3 text-lg text-gray-600">
           <li>✔️ Simple and transparent registration process</li>
           <li>✔️ Manage your products and orders in one place</li>

@@ -21,7 +21,7 @@ const Orders = () => {
   const navButtonStyles =
     "font-medium text-xs md:text-sm uppercase cursor-pointer px-3 py-1 rounded whitespace-nowrap";
 
-  const activeButtonStyles = "bg-lime-500 text-white shadow";
+  const activeButtonStyles = "bg-main text-white shadow";
 
   // Fetch Orders
   const fetchOrders = async () => {
@@ -39,43 +39,7 @@ const Orders = () => {
     }
   };
 
-  // Update Order Status
-  const updateOrderStatus = async (orderId, newStatus) => {
-    try {
-      
-      const response = await fetch(
-        `${BACKEND_URL}/api/order/status/${orderId}`,
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({ status: newStatus }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (data.success) {
-        setOrders((prev) =>
-          prev.map((order) =>
-            order._id === orderId ? { ...order, status: newStatus } : order
-          )
-        );
-
-        setNotification({
-          type: "Success",
-          message: `Order ${newStatus} successfully.`,
-          duration: 3000,
-        });
-
-        setShowNotification(true);
-
-        setTimeout(() => setShowNotification(false), 3000);
-      }
-    } catch (err) {
-      console.error("Error updating order:", err);
-    }
-  };
+ 
 
   useEffect(() => {
     fetchOrders();
@@ -99,7 +63,7 @@ const Orders = () => {
       )}
 
       {/* HEADER */}
-      <header className="flex gap-5 p-3 w-full overflow-x-auto bg-gray-900 text-white sticky top-0 z-10">
+      <header className="flex gap-5 p-3 w-full overflow-x-auto bg-black text-white sticky top-0 z-20">
 
         <h1 className="text-xl font-semibold">Orders</h1>
 
@@ -126,7 +90,7 @@ const Orders = () => {
       </header>
 
       {/* ORDERS LIST */}
-      <div className="p-4 md:p-6 columns-1 lg:columns-2 bg-gray-50 w-full gap-4 overflow-y-scroll ">
+      <div className="p-4 md:p-6 columns-1 lg:columns-2 bg-gray-50 w-full gap-4 overflow-y-scroll max-sm:pb-14">
 
         {filteredOrders.length === 0 ? (
           <p className="text-gray-500">

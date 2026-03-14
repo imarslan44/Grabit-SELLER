@@ -1,15 +1,28 @@
 @import "tailwindcss";
 @import "./pages/register.css";
+
+@theme{
+
+  --color-black  : #03001C;
+  --color-main   : #63c244;
+  --color-white1 : "";
+  --color-white2 : "";
+  --color-gray   : "";
+
+      }
+
 *{
   font-family: sans-serif;
-}
+ }
+
 html::-webkit-scrollbar{
   width: 0;
-}
+ }
+
 form::-webkit-scrollbar{
   width: 10px;
-}
+ }
 
 aside ul li{
   @apply  text-xl font-serif my-1 pl-8 
-}
+  }

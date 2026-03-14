@@ -104,8 +104,8 @@ if(Loading) return (<div className='w-full bg-gray-50 h-screen'>
         {
           // if 0 products in list
           producList.length === 0 && (
-          <div className="m-auto p-5 shadow rounded ">
-            <h2 className="text-xl font-semibold py-2">No products uploaded yet.</h2>
+          <div className=" max-sm:w-9/10 m-4 p-5 shadow rounded ">
+            <h2 className="text-xl text-gray-600  py-2">No products uploaded yet.</h2>
             <Link to="/add-product">
             <button className="p-1 px-3 text-lg bg-blue-500 text-white shadow rounded cursor-pointer">Start Uploading</button>
             </Link>
@@ -113,7 +113,7 @@ if(Loading) return (<div className='w-full bg-gray-50 h-screen'>
           </div>
           )
         }
-        <ul className=" w-full  h-full flex-1 p-5  overflow-auto flex gap-3 flex-wrap ">
+        <ul className=" w-full  h-full flex-1 p-5  overflow-auto flex gap-3 flex-wrap max-sm:pb-14">
            {
             producList.length > 0  && producList.map((item, index)=>(
 
@@ -122,31 +122,31 @@ if(Loading) return (<div className='w-full bg-gray-50 h-screen'>
      className="bg-white w-full xl:w-[48%] rounded-sm shadow border border-gray-200 hover:shadow-md transition p-4 flex flex-col sm:flex-row gap-4 relative">
 
   {/* 3 DOT MENU */}
-  <div className="absolute top-3 right-3">
+  <div className="absolute top-2 right-1.5">
     <button
       onClick={() => {
         setProductId(item._id);
         setpopUp(!popUp);
       }}
-      className="text-gray-500 hover:text-gray-800"
+      className="text-gray-500 hover:text-gray-800 cursor-pointer"
     >
       <ion-icon name="ellipsis-vertical"></ion-icon>
     </button>
 
     {popUp && ProductId === item._id && (
-      <div className="absolute right-0 mt-2 w-36 bg-white rounded-lg shadow-lg border text-sm z-50">
+      <div className="absolute right-0 mt-2 w-36 bg-white rounded-sm overflow-hidden border-gray-400 shadow-lg border text-sm z-50">
         <button
           onClick={() => {
             setOpenDeleteModal(true);
             setpopUp(false);
           }}
-          className="w-full text-left px-4 py-2 hover:bg-red-50 text-red-600"
+          className="w-full text-left px-4 py-2 font-bold hover:bg-red-50 text-red-600 cursor-pointer"
         >
           Delete
         </button>
 
         <button
-          className="w-full text-left px-4 py-2 hover:bg-gray-50"
+          className="w-full text-gray-400 text-left px-4 py-2 hover:bg-gray-50 cursor-not-allowed"
         >
           Update
         </button>
@@ -155,23 +155,30 @@ if(Loading) return (<div className='w-full bg-gray-50 h-screen'>
   </div>
 
   {/* IMAGE */}
-  <div className="w-full sm:w-32 h-40 sm:h-32 rounded-lg overflow-hidden flex-shrink-0">
+  <div className="flex rounded p-1 bg-gray-100 gap-2">
+  <div className="w-22 sm:w-32 h-22 sm:h-32 rounded-lg overflow-hidden flex-shrink-0">
     <img
       src={item.variants[0].images[0]}
       alt="product"
       className="w-full h-full object-cover"
     />
+    
   </div>
+  <h3 className="flex-1 md:hidden text-lg tracking-wide leading-6 py-2 text-gray-800">
+        {item.title}
+  </h3>
+ </div>
 
   {/* CONTENT */}
   <div className="flex flex-col justify-between flex-1">
 
     {/* Title + Description */}
-    <div>
-      <h3 className="text-lg font-semibold text-gray-800">
+    <h3 className="flex-1 max-md:hidden text-lg font-semibold text-gray-800">
         {item.title}
-      </h3>
+  </h3>
 
+    <div>
+      
       <p className="text-sm text-gray-500 mt-1 line-clamp-2">
         {item.description}
       </p>

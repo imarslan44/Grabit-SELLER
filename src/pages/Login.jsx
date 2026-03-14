@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { SET_TOKEN } from "../context/seller.slice.js";
 import { NavLink, useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../config/env.js";
-
+import { assets } from "../assets/assets.js";
 const Login = () => {
   const [credentials, setCredentials] = useState({
     email: "",
@@ -50,11 +50,13 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen w-screen flex">
-
+    <div className="min-h-screen w-screen flex  md:p-10">
+   <div className="w-40 sm:w-60 h-20 sm:h-28  md:m-6 p-2 absolute">
+      <img src={assets.logo} alt="Logo" className="w-full h-full object-cover"/>
+   </div>
       {/* LEFT BRAND PANEL */}
-      <div className="hidden md:flex w-1/2 bg-gradient-to-br from-amber-100 via-amber-50 to-amber-50/30 text-gray-700 p-16 flex-col justify-center">
-        <h1 className="text-6xl font-bold uppercase mb-6">Sell Smarter with Grabit</h1>
+      <div className="hidden md:flex w-1/2 bg-gradient-to-br  p-16 flex-col justify-center border-r border-gray-200">
+        <h1 className="text-6xl font-bold uppercase mb-6">Sell Smarter with <span className="text-main ">BARKET</span></h1>
         <p className="text-lg text-gray-700">
           Manage products, track orders and grow your business —
           all in one powerful dashboard.
@@ -62,7 +64,7 @@ const Login = () => {
       </div>
 
       {/* RIGHT LOGIN CARD */}
-      <div className="w-full md:w-1/2 flex items-center justify-center bg-amber-50/40">
+      <div className="w-full md:w-1/2 flex items-center justify-center bg-white ">
         <form
           onSubmit={handleSubmit}
           className="bg-white w-[90%] max-w-md p-10 rounded-md shadow border border-gray-200"

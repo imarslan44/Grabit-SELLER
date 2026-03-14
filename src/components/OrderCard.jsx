@@ -71,7 +71,7 @@ const OrderCard = ({ order, openAddress, setOpenAddress, setOrders, setNotificat
             return (
               <div
                key={order._id}
-               className="bg-white border border-gray-200 rounded-sm shadow-sm hover:shadow-md transition p-3 flex flex-col gap-3 mb-4 break-inside-avoid"
+               className="bg-white border border-gray-200 rounded-sm shadow-sm hover:shadow-md transition p-3 flex flex-col gap-3 mb-4 break-inside-avoid  relative"
 >
 
                 {/* TOP SECTION */}
@@ -89,11 +89,12 @@ const OrderCard = ({ order, openAddress, setOpenAddress, setOrders, setNotificat
                   {/* PRODUCT INFO */}
                   <div className="flex-1">
 
-                    <h2 className="text-sm md:text-base font-medium line-clamp-2">
+                    <h2 className="text-sm md:text-base font-medium line-clamp-2 pt-4">
                       {order.product?.title}
                     </h2>
-                    
-                    <span className="bg-gray-100 px-2 py-1 rounded">Ordered On: <span className="text-gray-800">{new Date(createdAt).toLocaleDateString()}</span></span>
+                   
+                    <span className="bg-gray-100 px-2 py-1 rounded">Date:<span className="text-gray-800">{new Date(createdAt).toLocaleDateString()}</span></span>
+                   
 
                     <div className="flex flex-wrap gap-2 mt-2 text-xs">
 
@@ -131,7 +132,7 @@ const OrderCard = ({ order, openAddress, setOpenAddress, setOrders, setNotificat
                   <div className="flex flex-col justify-between items-end">
 
                     <span
-                      className={`text-xs px-2 py-1 rounded font-semibold capitalize
+                      className={`text-xs px-2 py-1 rounded font-semibold capitalize absolute top-1 right-1 z-10 
                       ${
                         order.status === "PLACED"
                           ? "bg-blue-100 text-blue-700"
@@ -166,7 +167,7 @@ const OrderCard = ({ order, openAddress, setOpenAddress, setOrders, setNotificat
                       {order.status}
                     </span>
 
-                    <p className="text-sm font-semibold text-green-600">
+                    <p className="text-sm font-semibold text-green-600 pt-5" >
                       ₹{price}
                     </p>
                   </div>
