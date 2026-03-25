@@ -9,6 +9,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const Login = () => {
       alert("Please fill all the fields!");
       return;
     }
-
+    setLoading(true);
     try {
       const res = await fetch(`${BACKEND_URL}/api/seller/sign-in`, {
         method: "POST",
@@ -35,17 +36,31 @@ const Login = () => {
         body: JSON.stringify(credentials),
       });
 
-      const data = await res.json();
-
+      const data = await res.json().catch(() => ({}));
+       console.log(data)
+       if (!res.ok) {
+        const msg = data?.message || `Request failed (${res.status})`;
+        console.error("Login failed:", msg, data);
+        alert(msg);
+        setLoading(false);
+        return;
+      }
+  
       if (data.token) {
         localStorage.setItem("sellerToken", data.token);
         dispatch(SET_TOKEN(data.token));
-        navigate("/orders");
+
+            navigate("/");
+       
       } else {
+        console.error("Unexpected response:", data);
         alert(data.message || "Login failed.");
       }
     } catch (error) {
-      alert("Something went wrong.");
+      console.error("Network/error:", error);
+      alert("Something went wrong. Check the console and network tab.");
+    } finally {
+      setLoading(false);
     }
   };
 

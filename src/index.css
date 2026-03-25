@@ -5,9 +5,9 @@
 
   --color-black  : #03001C;
   --color-main   : #63c244;
-  --color-white1 : "";
-  --color-white2 : "";
-  --color-gray   : "";
+  --color-white : #fff;
+  --color-white-bg : #f9fafb;
+  --color-gray-text   : #6a7282 ;
 
       }
 

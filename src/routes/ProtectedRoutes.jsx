@@ -1,33 +1,44 @@
 //create a protected route component
+import React, { useState, useEffect } from "react"; 
+import { Navigate, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux"; 
+import { BACKEND_URL } from "../config/env.js";
+import { useLocation } from "react-router-dom"; 
+const url = `${BACKEND_URL}/api/seller/authorize/token `
+const ProtectedRoutes = () => {
+//make a request to the backend to check if the user is authenticated
+ const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const location = useLocation(); 
+  const checkAuth = async () => { try { const response = await fetch(url, { method: "GET",
+     headers: { "Content-Type": "application/json", 
 
-import React, { useState, useEffect }  from "react";
-import { Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-//use outlet to render child components
-import {Outlet}  from "react-router-dom";
-import { BACKEND_URL } from "../config/env";
-
-
-; const ProtectedRoutes = () => { const [isAuthorized, setIsAuthorized] = useState(null); // null = unknown yet 
-const authorize = async () => { 
-    try { const res = await fetch(`${BACKEND_URL}/api/seller/authorize/token`, { credentials: "include", });
-
-     const data = await res.json();
-    
-      setIsAuthorized(data.success); // true or false 
-
-      } catch (err) { 
-        console.error("Authorization failed", err);
-         setIsAuthorized(false); } }; useEffect(() => { authorize(); }, []);
-          if (isAuthorized === null) { // still loading, don’t redirect yet
-     return <div>Loading...</div>;
-    
+     },
+      credentials: "include", // include cookies in the request 
+      }); 
+      const data = await response.json();
+       console.log("Auth check response:", data); 
+       setIsAuthenticated(data.success); 
+    } catch (error) { 
+      console.error("Error checking authentication:", error);
+      setIsAuthenticated(false); 
     } 
- 
- return isAuthorized ? <Outlet /> : <Navigate to="/login" />; 
+  }; 
+  useEffect(() => { 
+    checkAuth(); 
+  },[]);
 
-}; 
+if (isAuthenticated === null) {
+   // You can return a loading spinner here while checking authentication 
+   return <div>Loading...</div>; 
+  } 
 
-     export default ProtectedRoutes;
+if (!isAuthenticated) {
+   return <Navigate to="/login" state={{ from: location.pathname }} replace />; 
+  } 
+
+return <Outlet />;
+};
+export default ProtectedRoutes;
+
 
 
