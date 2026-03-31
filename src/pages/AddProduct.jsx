@@ -1,7 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-
-import { admin_assets as assets } from '../assets/admin_assets/assets'
-import SampleCard from '../components/SampleCard';
  import Step_1 from '../components/listingComponents/Step_1';
 import Step_2 from '../components/listingComponents/Step_2';
 import Step_3 from '../components/listingComponents/Step_3';
