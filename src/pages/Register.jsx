@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SET_TOKEN } from '../context/seller.slice.js';
 import { Link } from 'react-router-dom';
 import { assets } from '../assets/assets.js';
+import { BACKEND_URL } from '../config/env.js';
 // Simple loading spinner component
 const Loading = () => (
   <div className="fixed inset-0 flex items-center justify-center bg-gray-50 bg-opacity-30 z-50">
@@ -56,7 +57,7 @@ const Register = () => {
           setLoading(true);
           seterror("");
 
-        const res = await fetch("http://localhost:5000/api/seller/sign-up", {
+        const res = await fetch(`${BACKEND_URL}/api/seller/sign-up`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"},

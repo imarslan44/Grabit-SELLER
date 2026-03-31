@@ -2,7 +2,7 @@ import React from 'react'
 
 const Step5 = () => {
   return (
-   <div className="w-full h-screen flex-1 bg-white p-6">
+   <div className="w-full h-screen flex-1 bg-gray-50  shadow p-6">
   {/* Title */}
   <h1 className="w-full text-xl font-semibold   text-gray-700  uppercase mb-8 tracking-tight">
     Upload Product in Five Steps.

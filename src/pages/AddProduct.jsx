@@ -13,6 +13,7 @@ import Step3 from '../components/listingComponents/GuideComponents/Step3';
 import Step4 from '../components/listingComponents/GuideComponents/step4';
 import Step5 from '../components/listingComponents/GuideComponents/Step5';
 import Loader from "../components/Loader.jsx"
+import { BACKEND_URL } from "../config/env.js";
 const Add = ({token}) => {
 
   const [Loading, setLoading] = useState(false)
@@ -57,7 +58,7 @@ const handleSubmit = async (e) => {
 
   try {
     setLoading(true)
-    const response = await fetch('http://localhost:5000/api/product/add', {
+    const response = await fetch(`${BACKEND_URL}/api/product/add`, {
       method: 'POST',
       headers: {  
         'Authorization': `Bearer ${token}`,
@@ -70,7 +71,7 @@ const handleSubmit = async (e) => {
     console.log("Response from server:", data);
     if(data.success) {
       setLoading(false);
-      return alert("Product uploaded successfully")
+      return alert("Product uploaded successfully");
     }
     
   } catch (error) {

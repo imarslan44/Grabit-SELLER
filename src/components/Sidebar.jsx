@@ -32,7 +32,7 @@ const Sidebar = () => {
       <NavLink 
         to="/orders" 
         className={({isActive}) => 
-          `block px-2 py-1 rounded-md transition ${
+          `block px-2 py-1 md:py-3 rounded-md transition ${
             isActive ? "bg-main  text-white" : "text-gray-700 hover:bg-gray-100"
           }`
         }>
@@ -42,8 +42,8 @@ const Sidebar = () => {
        <NavLink 
         to="/" 
         className={({isActive}) => 
-          `block  px-2 py-1 rounded-md transition ${
-            isActive ? "bg-main text-white " : "text-gray-700 hover:bg-gray-100"
+          `block  px-2 py-1 md:py-3 rounded-md transition ${
+            isActive ? "bg-main  text-white " : "text-gray-700 hover:bg-gray-100"
           }`
         } 
         end
@@ -54,7 +54,7 @@ const Sidebar = () => {
       <NavLink 
         to="/add-product" 
         className={({isActive}) => 
-          `block px-2 py-1 rounded-md transition ${
+          `block px-2 py-1 md:py-3 rounded-md transition ${
             isActive ? "bg-main text-white " : "text-gray-700 hover:bg-gray-100"
           }`
         }
@@ -65,7 +65,7 @@ const Sidebar = () => {
        <NavLink 
         to="/insights" 
         className={({isActive}) => 
-          `block px-2 py-1 rounded-md transition ${
+          `block px-2 py-1 md:py-3 rounded-md transition ${
             isActive ? "bg-main text-white " : "text-gray-700 hover:bg-gray-100"
           }`
         } 
@@ -78,7 +78,7 @@ const Sidebar = () => {
        <NavLink 
         to="/login" 
         className={({isActive}) => 
-          `flex items-baseline px-2 py-1  rounded-md transition ${
+          `flex items-baseline px-2 py-1 md:py-3  rounded-md transition ${
             isActive ? "bg-main text-white " : "text-gray-700 hover:bg-gray-100"
           }`
         } 

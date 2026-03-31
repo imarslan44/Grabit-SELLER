@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 
 const Step_5 = ({ deliveryDetails, setDeliveryDetails, handleSubmit, handleBack }) => {
+  const [CODchecked, setCODchecked] = useState(false);
   const [pincodeInput, setPincodeInput] = useState("");
 
   const handleChange = (field, value) => {
+    setCODchecked(value);
     setDeliveryDetails({ ...deliveryDetails, [field]: value });
   };
 
@@ -28,13 +30,17 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails, handleSubmit, handleBack 
       <h2 className="text-2xl font-bold mb-4">Delivery Details</h2>
 
       {/* COD */}
-      <div className="mb-4 flex items-center  justify-start gap-2 bg-gray-200 rounded-sm ">
-        <label className="font-medium  p-3 rounded-xs  w-1/3 text-nowrap flex gap-2.5">Cash on Delivery (COD)
-            <input
+      <div className="mb-4 flex items-center  justify-start gap-2 bg-gray-200 rounded-sm px-3 ">
+        <input
+        className=""
+        id="COD"
           type="checkbox"
           checked={deliveryDetails.COD}
           onChange={(e) => handleChange("COD", e.target.checked)}
         />
+        <label
+        htmlFor="COD" className={`font-medium   py-3 rounded-xs  w-full text-nowrap flex gap-2.5  ${CODchecked ? "text-green-600" : "text-red-500"}`}>Cash on Delivery (COD)
+            
         </label>
       
       </div>
@@ -111,7 +117,7 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails, handleSubmit, handleBack 
         
         </ul>
       </div>
-        <div className="flex py-1  gap-2">
+        <div className="flex py-1  gap-2 absolute bottom-0 max-sm:bottom-10 w-full left-0 bg-white/80 backdrop-blur-sm pb-4 px-2">
         <button type="button" onClick={handleBack} className="w-full  p-2 text-md  rounded-sm text-black bg-white font mt-2 mb-2 flex justify-center items-center cursor-pointer shadow-xs border border-white hover:border-gray-200"><ion-icon name="arrow-back-outline"></ion-icon> Back
         </button>
           

@@ -58,8 +58,9 @@ const removeSpec = (index) => {
 
 
   return (
-    <form onSubmit={handleNext} className="bg-gray-50 h-screen  px-8 ">
-      <h2 className="text-2xl font-semibold text-gray-900 tracking-tight border-b pb-4">
+    <form onSubmit={handleNext} className="bg-gray-50 h-screen  px-8 pb-20 max-sm:pb-40 ">
+
+      <h2 className="text-2xl font-semibold text-gray-900 tracking-tight border-b p-4 mb-6">
        Specifications. 
       </h2>
 
@@ -187,7 +188,7 @@ const removeSpec = (index) => {
       </button>
 
       {/* Next Button */}
-      <div className="flex py-1  gap-2">
+      <div className="flex py-1  gap-2 absolute bottom-0 max-sm:bottom-10 w-full left-0 bg-white/80 backdrop-blur-sm pb-4 px-2">
         <button type="button" onClick={handleBack} className="w-full  p-2 text-md  rounded-sm text-black bg-white font mt-2 mb-2 flex justify-center items-center cursor-pointer shadow-xs border border-white hover:border-gray-200"><ion-icon name="arrow-back-outline"></ion-icon> Back
         </button> 
           
