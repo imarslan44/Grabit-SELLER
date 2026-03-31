@@ -7,7 +7,7 @@ import Step_5 from '../components/listingComponents/Step_5';
 import Step1 from '../components/listingComponents/GuideComponents/Step1';
 import Step2 from '../components/listingComponents/GuideComponents/step2';
 import Step3 from '../components/listingComponents/GuideComponents/Step3';
-import Step4 from '../components/listingComponents/GuideComponents/step4';
+import Step4 from '../components/listingComponents/GuideComponents/Step4';
 import Step5 from '../components/listingComponents/GuideComponents/Step5';
 import Loader from "../components/Loader.jsx"
 import { BACKEND_URL } from "../config/env.js";
