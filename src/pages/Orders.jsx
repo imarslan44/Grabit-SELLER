@@ -24,15 +24,20 @@ const Orders = () => {
   const activeButtonStyles = "bg-main text-white shadow";
 
   // Fetch Orders
+
   const fetchOrders = async () => {
     try {
+      setLoading(true);
       const response = await fetch(`${BACKEND_URL}/api/order/seller`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         credentials: "include",
+        body: JSON.stringify({ status: activeButton.toLowerCase() }), // Send status in request body
       });
 
       const data = await response.json();
 
-      setOrders(data.orderData || []);
+      setOrders(data.orders || []);
       setLoading(false);
     } catch (err) {
       console.error("Error fetching orders:", err);
@@ -42,14 +47,16 @@ const Orders = () => {
  
 
   useEffect(() => {
+    setOrders([]);
+    setLoading(true);
     fetchOrders();
-  }, []);
+  }, [activeButton]);
 
   const filteredOrders = orders.filter(
     (order) => order.status?.toUpperCase() === activeButton
   );
 
-  if (loading) return <Loader />;
+  
 
   return (
     <div className="w-full h-screen overflow-x-hidden overflow-y-scroll relative">
@@ -63,7 +70,7 @@ const Orders = () => {
       )}
 
       {/* HEADER */}
-      <header className="flex gap-5 p-3 w-full overflow-x-auto bg-black text-white sticky top-0 z-20">
+      <header className="flex gap-5 p-3 w-full overflow-x-auto bg-black text-white sticky top-0 z-95">
 
         <h1 className="text-xl font-semibold">Orders</h1>
 
@@ -90,17 +97,22 @@ const Orders = () => {
       </header>
 
       {/* ORDERS LIST */}
-      <div className="p-4 md:p-6 columns-1 lg:columns-2 bg-gray-50 w-full gap-4 overflow-y-scroll max-sm:pb-14">
+      <div className="p-4 md:p-6 columns-1 xl:columns-2 bg-gray-50 w-full gap-4 overflow-y-scroll h-full max-sm:pb-14 msx-sm:flex flex-col items-center relative">
 
-        {filteredOrders.length === 0 ? (
+        {loading ? (
+            <Loader title={"Loading orders..."} styles={"absolute top-0 left-0"} />
+          ) : (
+
+        orders.length === 0 ? (
           <p className="text-gray-500">
             No {activeButton.toLowerCase()} orders.
           </p>
         ) : (
-          filteredOrders.map((order) => (
+          orders.map((order) => (
         <OrderCard key={order._id} order={order} openAddress={openAddress} setOpenAddress={setOpenAddress} setOrders={setOrders} setNotification={setNotification} setShowNotification={setShowNotification}/>
           ))
-        )}
+        )
+      )}
       </div>
     </div>
   );

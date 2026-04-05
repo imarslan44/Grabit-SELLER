@@ -70,7 +70,7 @@ useEffect(() => {
 
 
 if(Loading) return (<div className='w-full bg-gray-50 h-screen'>
-    <Loader/> </div>)
+    <Loader title={"Loading products..."}/> </div>)
 
   return (
     <section className=' relative w-full min-h-screen  flex flex-col bg-gray-50'>

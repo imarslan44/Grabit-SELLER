@@ -2,21 +2,87 @@ import React, {useState} from "react";
 import { BACKEND_URL } from "../config/env.js";
 
 const OrderCard = ({ order, openAddress, setOpenAddress, setOrders, setNotification, setShowNotification }) => {
+  
+  
+// order structure: 
+//{
+// address:{firstName: 'arslan', lastName: 'Ahmed', phone: '07051047915', street: 'lass saroor', city: 'Kishtwar', …}
+// amount
+// : 
+// null
+// createdAt
+// : 
+// "2026-03-11T11:38:00.638Z"
+// paymentStatus
+// : 
+// "failed"
+// paymentType
+// : 
+// "razorpay"
+// price
+// : 
+// 999
+// productId
+// : 
+// "6975bc5a96fef76f794e3fba"
+// productImage
+// : 
+// "https://res.cloudinary.com/ddaid56zh/image/upload/v1769323208/products/ktkev817ldnlcumcik4i.jpg"
+// productTitle
+// : 
+// "👟 AeroFlex Runner – Comfort Meets Performance"
+// quantity
+// : 
+// 1
+// returnPolicy
+// : 
+// null
+// sellerId
+// : 
+// "694ab8033c183c6ec7cc140b"
+// size
+// : 
+// null
+// sizeIndex
+// : 
+// 0
+// status
+// : 
+// "PLACED"
+// updatedAt
+// : 
+// "2026-04-02T06:46:37.749Z"
+// userId
+// : 
+// {_id: '694035c569a3f85378a77d94', name: 'Arslan Ahmed', email: 'imarslan@gmail.com'}
+// variantIndex
+// : 
+// 0
+// __v
+// : 
+// 0
+// _id
+// : 
+// "69b15418e0b723fc4c324cbe"
+console.log("Rendering OrderCard for order:", order);
 
+//destructure order data
   let {
-    _id,
+    variant,
+    price,
+    title,
+    size,
     createdAt,
-    status,
-    paymentStatus,
-    paymentType,
-    quantity,
     amount,
-    productTitle,
-    productImage,
-    address,
+    shippingFee,
     returnPolicy,
-    updatedAt,
-  } = order;
+    address,
+    paymentStatus,
+    status,
+
+
+  
+}= order;
   
   
     // Update Order Status
@@ -43,7 +109,7 @@ const OrderCard = ({ order, openAddress, setOpenAddress, setOrders, setNotificat
           );
   
           setNotification({
-            type: "Success",
+            type: "✅Success",
             message: `Order ${newStatus} successfully.`,
             duration: 3000,
           });
@@ -57,16 +123,9 @@ const OrderCard = ({ order, openAddress, setOpenAddress, setOrders, setNotificat
       }
     };
 
-   const currentVariant =
-              order.product.variants[order?.variantIndex];
+   
 
-            const price =
-              currentVariant.sizes[order.sizeIndex]?.price ||
-              currentVariant.price ||
-              "Free";
-
-            const currentSize =
-              currentVariant?.sizes?.[order?.sizeIndex];
+           
 
             return (
               <div
@@ -80,8 +139,8 @@ const OrderCard = ({ order, openAddress, setOpenAddress, setOrders, setNotificat
                   {/* IMAGE */}
                   <div className="w-24 h-24 flex-shrink-0">
                     <img
-                      src={currentVariant?.images[0] || "/placeholder.png"}
-                      alt={order.product?.title}
+                      src={variant?.images[0] || "/placeholder.png"}
+                      alt={order?.title}
                       className="w-full h-full object-cover rounded"
                     />
                   </div>
@@ -90,7 +149,7 @@ const OrderCard = ({ order, openAddress, setOpenAddress, setOrders, setNotificat
                   <div className="flex-1">
 
                     <h2 className="text-sm md:text-base font-medium line-clamp-2 pt-4">
-                      {order.product?.title}
+                      {title}
                     </h2>
                    
                     <span className="bg-gray-100 px-2 py-1 rounded">Date:<span className="text-gray-800">{new Date(createdAt).toLocaleDateString()}</span></span>
@@ -99,12 +158,12 @@ const OrderCard = ({ order, openAddress, setOpenAddress, setOrders, setNotificat
                     <div className="flex flex-wrap gap-2 mt-2 text-xs">
 
                       <span className="bg-gray-100 px-2 py-1 rounded">
-                        COLOR: {currentVariant.color}
+                        COLOR: {variant.color}
                       </span>
 
-                      {currentSize && (
+                      {size && (
                         <span className="bg-gray-100 px-2 py-1 rounded">
-                          SIZE: {currentSize.size}
+                          SIZE: {size}
                         </span>
                       )}
 
@@ -114,16 +173,16 @@ const OrderCard = ({ order, openAddress, setOpenAddress, setOrders, setNotificat
 
                       <span
                         className={`px-2 py-1 rounded ${
-                          order.paymentStatus === "pending"
+                         paymentStatus === "pending"
                             ? "bg-red-100 text-red-600"
                             : "bg-green-100 text-green-700"
                         }`}
                       >
-                        PAYMENT: {order.paymentStatus}
+                        PAYMENT: {paymentStatus}
                       </span>
 
                       <span className="bg-gray-100 px-2 py-1 rounded">
-                        AMOUNT: ₹{order.amount}
+                        AMOUNT (price + {shippingFee} shipping): ₹{String(amount)} 
                       </span>
                     </div>
                   </div>
@@ -134,37 +193,37 @@ const OrderCard = ({ order, openAddress, setOpenAddress, setOrders, setNotificat
                     <span
                       className={`text-xs px-2 py-1 rounded font-semibold capitalize absolute top-1 right-1 z-10 
                       ${
-                        order.status === "PLACED"
+                        status === "PLACED"
                           ? "bg-blue-100 text-blue-700"
                           : ""
                       }
                       ${
-                        order.status === "SHIPPED"
+                        status === "SHIPPED"
                           ? "bg-indigo-100 text-indigo-700"
                           : ""
                       }
                       ${
-                        order.status === "OUT_FOR_DELIVERY"
+                        status === "OUT_FOR_DELIVERY"
                           ? "bg-purple-100 text-purple-700"
                           : ""
                       }
                       ${
-                        order.status === "DELIVERED"
+                        status === "DELIVERED"
                           ? "bg-green-100 text-green-700"
                           : ""
                       }
                       ${
-                        order.status === "CANCELLED"
+                        status === "CANCELLED"
                           ? "bg-red-100 text-red-700"
                           : ""
                       }
                       ${
-                        order.status === "RETURNED"
+                       status === "RETURNED"
                           ? "bg-orange-100 text-orange-700"
                           : ""
                       }`}
                     >
-                      {order.status}
+                      {status}
                     </span>
 
                     <p className="text-sm font-semibold text-green-600 pt-5" >
@@ -225,8 +284,8 @@ const OrderCard = ({ order, openAddress, setOpenAddress, setOrders, setNotificat
                       <div>
                         <p className="font-semibold">Name</p>
                         <p>
-                          {order.address.firstName}{" "}
-                          {order.address.lastName}
+                          {address.firstName}{" "}
+                          {address.lastName}
                         </p>
                       </div>
                       <div>
