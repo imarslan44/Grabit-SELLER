@@ -10,13 +10,25 @@ import Step3 from '../components/listingComponents/GuideComponents/Step3';
 import Step4 from '../components/listingComponents/GuideComponents/Step4';
 import Step5 from '../components/listingComponents/GuideComponents/Step5';
 import Loader from "../components/Loader.jsx"
+import Notification from '../components/Notification.jsx';
 import { BACKEND_URL } from "../config/env.js";
+
 const Add = ({token}) => {
+  const [showNotification, setShowNotification] = useState(false)
+  const [notification, setNotification] = useState({
+      type: "",
+      message: "",
+      duration: 0,
+    });
+
+const [showGuidlines, setShowGuidlines] = useState(false)
+  
 
   const [Loading, setLoading] = useState(false)
   // state to tell wich step to move
   const [step, setStep] = useState(1)
   const [productImages, setProductImages] = useState([]);
+
 
 
  //prepare form data to send to backend
@@ -63,15 +75,42 @@ const handleSubmit = async (e) => {
       credentials: 'include',
       body: formData
     });
+
+    if (!response.ok) {
+      setLoading(false)
+      setNotification({
+        type: "Error",
+        message: `Failed to upload product. ${response.statusText}`,
+        duration: 3000,
+      });
+
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 3000);
+      
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to upload product');
+      
+    }
     console.log("response",response)
     const data = await response.json(); 
     console.log("Response from server:", data);
     if(data.success) {
       setLoading(false);
-      return alert("Product uploaded successfully");
+
+      setNotification({
+            type: "✅Success",
+            message: `Product uploaded  successfully.`,
+            duration: 3000,
+          });
+  
+          setShowNotification(true);
+  
+          setTimeout(() => setShowNotification(false), 3000);
+      
     }
     
   } catch (error) {
+
     console.error("Error submitting form:", error);
   }
 }
@@ -169,10 +208,19 @@ if(Loading) return (<Loader title={"Uploading product..."} styles={"absolute top
   return (
   <div className='Container flex  items-around bg-gray-50  w-full  h-screen  md:p-1 md:gap-2'>
 
+    {showNotification && <Notification 
+          type={notification.type}
+          message={notification.message}
+          duration={notification.duration}/>}
 
 {/* product listing goes here */}
 
-<div  className="lg:w-3/5 flex-1 flex flex-col bg-amber-100 rounded-md  justify-baseline-center items-baseline-center relative h-screen overflow-hidden">
+<div  className="lg:w-3/5 flex-1 flex flex-col  rounded-md  justify-baseline-center items-baseline-center relative h-screen overflow-hidden">
+
+<button onClick={()=>setShowGuidlines(!showGuidlines)}
+className="absolute top-4 right-4 z-20 text-3xl">
+ { !showGuidlines ? <ion-icon name="help-circle-outline"></ion-icon> : <ion-icon name="close-outline"></ion-icon> }
+</button>
 
 { step === 1 && <Step_1 handleNext={handleNext} basicInfo={basicInfo}  setBasicInfo={setBasicInfo}/> }
 
@@ -188,7 +236,7 @@ activeCount={activeCount} setActiveCount={setActiveCount}/>}
 </div>
 
 {/* guide component on right side */}
-  <div className="w-full flex-1 pb-2 max-md:hidden">
+  <div className={`w-full flex-1 pb-2 max-md:absolute transition-all duration-200 top-0 ${ showGuidlines ? "left-0" : " left-full" }`}>
        
     {step === 1 && <Step1/>}
     {step === 2 && <Step2/>}

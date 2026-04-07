@@ -75,7 +75,7 @@ const removeVarient = (index)=>{
 
 {/* map on each varient and show inputs fields for each */}
       {variants.map((variant, vIndex) => (
-        <div key={vIndex} className="border w-full rounded-sm p-4 pt-8 md:pr-10 mb-6 bg-white border-gray-700 relative">
+        <div key={vIndex} className="border w-full rounded-xs p-4 pt-8 md:pr-10 mb-6 bg-white border-gray-700 relative">
 
         { vIndex > 0 && <button onClick={()=>removeVarient(vIndex)} 
         className="absolute right-2 top-2  cursor-pointer"> 
@@ -86,14 +86,14 @@ const removeVarient = (index)=>{
         }
 
           {/* Color */}
-      <div className="flex gap-4 mb-4">
+      <div className="flex gap-2 mb-4">
         <input
             type="text"
             value={variant.color}
             
             onChange={(e) => handleColorChange(vIndex, "color", e.target.value)}
             placeholder="Color name."
-            className="mb-3 w-1/4 border px-3 py-2 rounded max-sm:flex-1"
+            className="mb-3 w-1/4 border px-3 py-2 rounded-xs max-sm:flex-1"
              required
           />
         <input
@@ -103,7 +103,7 @@ const removeVarient = (index)=>{
            value={variant.price || ""}
            onChange={(e) => handleColorChange(vIndex, "price", e.target.value)}
            placeholder="Price in Rs."
-           className={`w-1/4 mb-3 border px-3 py-2 rounded  max-sm:flex-1
+           className={`w-1/4 mb-3 border px-3 py-2 rounded-xs  max-sm:flex-1
               ${variant.sizes.length > 0 ? "opacity-50 cursor-not-allowed" : ""}`}
   disabled={variant.sizes.length > 0}
 />
@@ -115,7 +115,7 @@ const removeVarient = (index)=>{
   value={variant.stock || ""}
   onChange={(e) => handleColorChange(vIndex, "stock", e.target.value)}
   placeholder="Stock qty."
-  className={`w-1/4 mb-3 border px-3 py-2 rounded max-sm:flex-1
+  className={`w-1/4 mb-3 border px-3 py-2 rounded-xs max-sm:flex-1
               ${variant.sizes.length > 0 ? "opacity-50 cursor-not-allowed" : ""}`}
   disabled={variant.sizes.length > 0}
 />
@@ -130,7 +130,7 @@ const removeVarient = (index)=>{
 <div className="flex gap-4 mb-3">
   {[...Array(4)].map((_, i) => {
    const requiredImage = variants?.images?.[0] === "" && i === 0;
-   console.log(requiredImage)
+   
 
    return (
    <label

@@ -39,13 +39,14 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails, handleSubmit, handleBack 
           onChange={(e) => handleChange("COD", e.target.checked)}
         />
         <label
-        htmlFor="COD" className={`font-medium   py-3 rounded-xs  w-full text-nowrap flex gap-2.5  ${CODchecked ? "text-green-600" : "text-red-500"}`}>Cash on Delivery (COD)
+        htmlFor="COD" className={`font-medium   py-3 rounded-xs  w-full text-nowrap flex gap-2.5  ${deliveryDetails.COD ? "text-green-600" : "text-red-500"}`}>Cash on Delivery (COD)
             
         </label>
       
       </div>
 
       {/* Return Policy */}
+    <div className="w-full flex gap-3">
       <div className="mb-4">
         <label className="block mb-2 font-medium">Return Policy (days)</label>
         <input
@@ -53,7 +54,7 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails, handleSubmit, handleBack 
           value={deliveryDetails.returnPolicy}
           onChange={(e) => handleChange("returnPolicy", e.target.value)}
           placeholder="Enter return policy in days"
-          className="w-full border px-3 py-2 rounded"
+          className="w-full border px-3 py-2 rounded-xs"
           required
         />
       </div>
@@ -66,10 +67,11 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails, handleSubmit, handleBack 
           value={deliveryDetails.shippingTime}
           onChange={(e) => handleChange("shippingTime", e.target.value)}
           placeholder="Enter shipping time in days"
-          className="w-full border px-3 py-2 rounded"
+          className="w-full border px-3 py-2 rounded-xs"
           required
         />
       </div>
+     </div>
 
       {/* Delivery Areas */}
       <div className="mb-4 max-h-45 ">
@@ -80,7 +82,7 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails, handleSubmit, handleBack 
             value={pincodeInput}
             onChange={(e) => setPincodeInput(e.target.value)}
             placeholder="Enter pincode"
-            className="border px-3 py-2 rounded flex-1"
+            className="border px-3 py-2 rounded-sm flex-1"
             required={deliveryDetails.deliveryAreas.length === 0}
           />
           <button
@@ -94,7 +96,7 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails, handleSubmit, handleBack 
         <ul className="space-y-1 max-h-30  overflow-auto">
           {
             deliveryDetails.deliveryAreas.length === 0 &&  (
-              <p>No pincode added Yet!</p>
+              <p className="text-gray-500 ">No pincode added Yet!</p>
             )
           }
 
@@ -121,7 +123,7 @@ const Step_5 = ({ deliveryDetails, setDeliveryDetails, handleSubmit, handleBack 
         <button type="button" onClick={handleBack} className="w-full  p-2 text-md  rounded-sm text-black bg-white font mt-2 mb-2 flex justify-center items-center cursor-pointer shadow-xs border border-white hover:border-gray-200"><ion-icon name="arrow-back-outline"></ion-icon> Back
         </button>
           
-        <button type="submit"  className="w-full  p-2 text-md bg-black rounded-sm text-white mt-2 mb-2 flex justify-center items-center cursor-pointer">
+        <button type="submit"  className="w-full  p-2 text-md bg-main rounded-sm text-white mt-2 mb-2 flex justify-center items-center cursor-pointer">
               Publish <ion-icon name="arrow-up-outline"></ion-icon>
         </button> 
       </div>

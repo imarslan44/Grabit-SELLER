@@ -19,24 +19,13 @@ const Step_4 = ({ metadetails, setMetaDetails, handleNext, handleBack}) => {
           value={metadetails.brand}
           onChange={(e) => handleChange("brand", e.target.value)}
           placeholder="Enter brand name"
-          className="w-full border px-3 py-2 rounded"
+          className="w-full border px-3 py-2 rounded-xs"
           required
           
         />
       </div>
 
-      {/* Discount */}
-      <div className="mb-4">
-        <label className="block mb-2 font-medium">Discount (%)</label>
-        <input
-          type="number"
-          value={metadetails.discount || ""}
-          onChange={(e) => handleChange("discount", e.target.value)}
-          placeholder="Enter discount percentage"
-          className="w-full border px-3 py-2 rounded"
-          required
-        />
-      </div>
+     
 
       {/* Model */}
       <div className="mb-4">
@@ -46,18 +35,20 @@ const Step_4 = ({ metadetails, setMetaDetails, handleNext, handleBack}) => {
           value={metadetails.model}
           onChange={(e) => handleChange("model", e.target.value)}
           placeholder="Enter exact model/product name"
-          className="w-full border px-3 py-2 rounded"
+          className="w-full border px-3 py-2 rounded-xs"
           
         />
       </div>
 
-      {/* Warranty */}
-      <div className="mb-4">
+      {/* Warranty & discount */}
+       <div className="flex gap-2">
+        {/* Warranty */}
+      <div className="-4 flex-1">
         <label className="block mb-2 font-medium">Warranty</label>
         <select
           value={metadetails.warranty}
           onChange={(e) => handleChange("warranty", e.target.value)}
-          className="w-full border px-3 py-2 rounded"
+          className="w-full text-xl border px-3 py-2 rounded-"
         >
           <option value="">Select warranty</option>
           <option value="6 months">6 Months</option>
@@ -67,6 +58,19 @@ const Step_4 = ({ metadetails, setMetaDetails, handleNext, handleBack}) => {
           <option value="2 years">2 Years</option>
         </select>
       </div>
+       {/* Discount */}
+      <div className="mb-4 w-4/10">
+        <label className="block mb-2 font-medium">Discount (%)</label>
+        <input
+          type="number"
+          value={metadetails.discount || ""}
+          onChange={(e) => handleChange("discount", e.target.value)}
+          placeholder="Discount percentage"
+          className="w-full border px-3 py-2 rounded-"
+          required
+        />
+      </div>
+     </div>
 
       <div className="flex py-1  gap-2 absolute bottom-0 max-sm:bottom-10 w-full left-0 bg-white/80 backdrop-blur-sm pb-4 px-2">
         <button type="button" onClick={handleBack} className="w-full  p-2 text-md  rounded-sm text-black bg-white font mt-2 mb-2 flex justify-center items-center cursor-pointer shadow-xs border border-white hover:border-gray-200">

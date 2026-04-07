@@ -68,7 +68,7 @@ const Insights = () => {
     return (
         <div className=" h-screen w-full bg-gray-100 p-4 sm:p-6 md:p-8 overflow-y-auto relative max-sm:pb-14">
             
-<h1 className="text-3xl font- absolute TEXT-GRAY-800 w-full top-0 left-0 pl-3 pt-4  text-gray-800 mb-6">SELLER INSIGHTS. 6</h1>
+<h1 className="text-3xl font- absolute TEXT-GRAY-800 w-full top-0 left-0 pl-3 pt-4  text-gray-400 mb-6">SELLER INSIGHTS.</h1>
             {/* Stats Grid */}
             <div className="w-full md:h-1/5 pt-2 sm:p-4 mt-10 flex flex-wrap gap-3 sm:gap-6 ">
             

@@ -65,7 +65,7 @@ const removeSpec = (index) => {
       </h2>
 
       {/* Dimensional Properties */}
-      <div className="grid grid-cols-4 gap-4 mt-6 items-end">
+      <div className="grid grid-cols-4 gap- mt-6 items-end">
         <div>
           <label className="block mb-1 text-sm font-semibold text-gray-700">
             Length
@@ -75,7 +75,7 @@ const removeSpec = (index) => {
             value={attributes.dimensions.length}
             onChange={(e) => handleDimensionChange("length", e.target.value)}
             placeholder="e.g. 20"
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-3 py-2 border rounded- focus:outline-none focus:ring-2 focus:ring-indigo-500"
             required
           />
         </div>
@@ -88,7 +88,7 @@ const removeSpec = (index) => {
             value={attributes.dimensions.width}
             onChange={(e) => handleDimensionChange("width", e.target.value)}
             placeholder="e.g. 10"
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-3 py-2 border-y  rounded- focus:outline-none focus:ring-2 focus:ring-indigo-500"
             required
           />
         </div>
@@ -101,7 +101,7 @@ const removeSpec = (index) => {
             value={attributes.dimensions.height}
             onChange={(e) => handleDimensionChange("height", e.target.value)}
             placeholder="e.g. 5"
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-3 py-2 border rounded- focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
         <div>
@@ -111,7 +111,7 @@ const removeSpec = (index) => {
           <select
             value={attributes.dimensions.dimUnit}
             onChange={(e) => handleDimensionChange("dimUnit", e.target.value)}
-            className="w-full px-2 py-2 border rounded-md bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-2 py-2 text-xl border-b rounded- bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
             <option value="cm">cm</option>
             <option value="inch">inch</option>
@@ -120,9 +120,9 @@ const removeSpec = (index) => {
       </div>
 
       {/* Weight */}
-      <div className="grid grid-cols-2 gap-4 mt-6 items-end">
-        <div>
-          <label className="block mb-1 text-sm font-semibold text-gray-700">
+      <div className="w-full grid-cols-2 gap- mt-6 items-end flex">
+        <div className="flex-1">
+          <label className="block mb-1 text-sm font-semibold tracking-wide text-gray-600">
             Weight
           </label>
           <input
@@ -130,29 +130,32 @@ const removeSpec = (index) => {
             value={attributes.dimensions.weight}
             onChange={(e) => handleDimensionChange("weight", e.target.value)}
             placeholder="e.g. 500"
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-3 py-2 border rounded- focus:outline-none focus:ring-2 focus:ring-indigo-500"
             required
           />
         </div>
-        <div>
-          <label className="block mb-1 text-sm font-semibold text-gray-700">
-            Unit
-          </label>
+        <div >
+          <label className="block  text-sm tracking-wide text-gray-600 font-semibold">
+            <span className="mb-1 text-md">Unit</span>
+          
           <select
             value={attributes.dimensions.weightUnit}
             onChange={(e) => handleDimensionChange("weightUnit", e.target.value)}
-            className="w-full px-2 py-2 border rounded-md bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-2 py-2 text-xl border-b rounded- bg-white text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
-            <option value="g">g</option>
+            
+            <option value="g">gm</option>
             <option value="kg">kg</option>
           </select>
+          </label>
         </div>
       </div>
 
       {/* Specifications Section */}
       <div className="space-y-4 mt-8">
+        <h2 className="text-lg font-semibold tracking-wide text-gray-600">Specifications.</h2>
         {attributes.specs.map((spec, index) => (
-          <div key={index} className="flex items-center gap-3">
+          <div key={index} className="flex items-center gap-3 border">
             <input
               type="text"
               value={spec}
@@ -162,7 +165,7 @@ const removeSpec = (index) => {
                   ? "e.g. 100% Cotton, 6GB RAM"
                   : "Add another specification"
               }
-              className={`flex-1 px-3 py-2 border rounded-md focus:outline-none ${
+              className={`flex-1 px-3 py-2 border-none rounded-xs focus:outline-none ${
                 index < activeCount
                   ? "bg-white text-gray-900 focus:ring-2 focus:ring-indigo-500"
                   : "bg-gray-100 text-gray-400 cursor-not-allowed"

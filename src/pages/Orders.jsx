@@ -52,10 +52,7 @@ const Orders = () => {
     fetchOrders();
   }, [activeButton]);
 
-  const filteredOrders = orders.filter(
-    (order) => order.status?.toUpperCase() === activeButton
-  );
-
+  
   
 
   return (
@@ -100,7 +97,7 @@ const Orders = () => {
       <div className="p-4 md:p-6 columns-1 xl:columns-2 bg-gray-50 w-full gap-4 overflow-y-scroll h-full max-sm:pb-14 msx-sm:flex flex-col items-center relative">
 
         {loading ? (
-            <Loader title={"Loading orders..."} styles={"absolute top-0 left-0"} />
+            <Loader title={"Loading..."} styles={"absolute top-0 left-0"} />
           ) : (
 
         orders.length === 0 ? (

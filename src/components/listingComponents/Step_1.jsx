@@ -15,12 +15,15 @@ const Step_1 = ({ basicInfo, setBasicInfo, handleNext }) => {
 
 
   return (
-    <form onSubmit={handleNext} className=" flex-2  bg- flex flex-col justify-around p-8 w-full   h-screen bg-gray-50 ">
+    <form onSubmit={handleNext} className=" flex-2  bg- flex flex-col justify-between  p-8 pb-14 w-full   h-screen bg-gray-50 relative ">
+      <h1 className="w-full p-4 absolute top-0 left-0 text-center font-serif text-lg text-gray-500 ">Upload your product in 5 easy steps.</h1>
+      <div className="flex flex-col gap-3 py-4">
       <h2 className="text-xl font-semibold text-gray-800">Basic Info</h2>
 
       {/* Product Title */}
+      
       <div>
-        <label className="block mb-2 text-sm font-medium text-gray-700">
+        <label className="block mb-2 text-md text-md uppercase font-medium text-gray-600">
           Product Title
         </label>
         <input
@@ -30,14 +33,15 @@ const Step_1 = ({ basicInfo, setBasicInfo, handleNext }) => {
           value={basicInfo.title || ""}
           onChange={handleChange}
           placeholder="Enter product title"
-          className="w-full px-3 py-2 border rounded-sm focus:outline-none focus:ring focus:ring-gray-700"
+          className="w-full px-3 py-2 border-2 text-lg border-gray-500  rounded-sm focus:outline-none focus:ring focus:ring-gray-700"
           required
         />
       </div>
 
       {/* Description */}
+
       <div>
-        <label className="block mb-2 text-sm font-medium text-gray-700">
+        <label className="block mb-2  text-md text-md uppercase font-medium text-gray-600">
           Description
         </label>
         <textarea
@@ -46,14 +50,15 @@ const Step_1 = ({ basicInfo, setBasicInfo, handleNext }) => {
           onChange={handleChange}
           placeholder="Write product description"
           rows={4}
-          className="w-full px-3 py-2 border rounded-sm focus:outline-none focus:ring focus:ring-gray-700"
+          className="w-full px-3 py-2 text-lg border-2 border-gray-500  rounded-sm focus:outline-none focus:ring focus:ring-gray-700 "
           required
         />
       </div>
 
       {/* Brand */}
-      <div>
-        <label className="block mb-2 text-sm font-medium text-gray-700">
+      <div className='flex w-full justify-between gap-4'>
+      <div className='flex-1'>
+        <label className="block mb-2 text-md font-medium text-md uppercase  text-gray-600">
           Category
         </label>
         <input
@@ -62,14 +67,14 @@ const Step_1 = ({ basicInfo, setBasicInfo, handleNext }) => {
           value={basicInfo.category || ""}
           onChange={handleChange}
           placeholder="Enter the category this item belongs"
-          className="w-full px-3 py-2 border rounded-sm focus:outline-none focus:ring focus:ring-gray-700"
+          className="w-full px-3 py-2 text-lg border-2 border-gray-500 rounded-sm focus:outline-none focus:ring focus:ring-gray-700"
           
         />
       </div>
 
       {/* Vendor Store (Text Input instead of Select) */}
-      <div>
-        <label className="block mb-2 text-sm font-medium text-gray-700">
+      <div className="flex-1">
+        <label className="block mb-2 text-md uppercase font-medium text-gray-600">
           Subcaegory
         </label>
         <input
@@ -78,14 +83,18 @@ const Step_1 = ({ basicInfo, setBasicInfo, handleNext }) => {
           value={basicInfo.subcategory || ""}
           onChange={handleChange}
           placeholder="Enter the subcategory this item belongs"
-          className="w-full px-3 py-2 border rounded-sm focus:outline-none focus:ring focus:ring-gray-700"
+          className="w-full px-3 py-2 text-lg border-2 border-gray-500  rounded-sm focus:outline-none focus:ring focus:ring-gray-700"
           required
         />
+        </div>
+</div>
         <p className="text-xs text-gray-500 mt-1">
           Remember both categories impact on search engigne. So enter wisely and avoid spelling mistakes 
         </p>
 
+
        
+      
       </div>
       <div className="flex py-1  gap-2">
         
