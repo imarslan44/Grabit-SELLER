@@ -94,7 +94,7 @@ const Insights = () => {
             </div>
 
             {/* Monthly Sales Chart */}
-            <div className=' bg-white rounded h-5/7 mt-4 sm:mx-4  flex flex-col max-md:justify-right justify-center items-center overflow-hiddenn'>
+            <div className=' bg-white rounded h-5/7 mt-4 sm:mx-4  flex flex-col max-md:justify-right justify-center items-center overflow-hiddenn shadow'>
 
                 <div className="flex justify-center m-4">
                     <button

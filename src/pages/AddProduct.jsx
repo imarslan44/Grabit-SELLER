@@ -206,7 +206,7 @@ const [deliveryDetails, setDeliveryDetails] = useState({
 if(Loading) return (<Loader title={"Uploading product..."} styles={"absolute top-0 left-0"} />)
   
   return (
-  <div className='Container flex  items-around bg-gray-50  w-full  h-screen  md:p-1 md:gap-2'>
+  <div className='Container flex  items-around bg-gray-50  w-full  h-screen  md:p-1 md:gap-2 overflow-hidden relative'>
 
     {showNotification && <Notification 
           type={notification.type}
