@@ -94,14 +94,14 @@ const Orders = () => {
       </header>
 
       {/* ORDERS LIST */}
-      <div className="p-4 md:p-6 columns-1 xl:columns-2 bg-gray-50 w-full gap-4 overflow-y-scroll h-full max-sm:pb-14 msx-sm:flex flex-col items-center relative">
+      <div className="p-4 md:p-6 columns-1 xl:columns-2 bg-gray-50 w-full gap-4  min-h-[calc(100vh-20px)] max-sm:pb-14 msx-sm:flex flex-col items-center relative">
 
         {loading ? (
             <Loader title={"Loading..."} styles={"absolute top-0 left-0"} />
           ) : (
 
         orders.length === 0 ? (
-          <p className="text-gray-500">
+          <p className="text-gray-500 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ">
             No {activeButton.toLowerCase()} orders.
           </p>
         ) : (
